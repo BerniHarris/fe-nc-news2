@@ -1,23 +1,34 @@
 import { useEffect, useState } from "react";
-const API_URL = import.meta.env.VITE_API_URL;
+import { get } from "../api";
 
 function App() {
-  const [data, setData] = useState(null);
+  const [articles, setArticles] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch(`${API_URL}/articles/`);
-      const json = await res.json();
-      setData(json);
-    };
-
-    fetchData();
+    get("/articles")
+      .then((articles) => setArticles(articles.articles))
+      .catch((error) => setError(error));
   }, []);
+
+  console.log(error);
 
   return (
     <div>
-      <h1>Endpoints</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <h1>Articles</h1>
+      <div>
+        {articles.map((article) => {
+          return (
+            <ul>
+              <li>{article.title}</li>
+              <li>{article.author}</li>
+              <li>{article.topic}</li>
+              <li>{article.votes}</li>
+              <li>{article.comment_count}</li>
+            </ul>
+          );
+        })}
+      </div>
     </div>
   );
 }
