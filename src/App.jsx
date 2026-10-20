@@ -7,7 +7,6 @@ function App() {
     <Router>
       <Routes>
         <Route path="/articles" element={<ArticleListPage />} />
-
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
