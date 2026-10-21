@@ -24,6 +24,12 @@ Inside `.env` set the api url to `VITE_API_URL=https://be-nc-news2.onrender.com/
 
 An example has been created called `.env-example`.
 
+## Running The Project
+
+To view and run the project locally, use the command `npm run dev`.
+
+This runs on port 5173 and if a window doesn't open automatically, you can view on [http://localhost:5173/](http://localhost:5173/)`
+
 ## Testing
 
 Whilst on the bootcamp, testing was done by running the app locally and manually testing. This feels uncomfortable now having used jest / cypress for work and so there will be testing.

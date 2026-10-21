@@ -8,12 +8,18 @@ export const useArticleList = () => {
 
   useEffect(() => {
     const fetchArticles = async () => {
-      get("/articles")
-        .then((articles) => setArticles(articles.articles))
-        .catch((error) => setError(error))
-        .finally(setLoading(false));
+      try {
+        const { articles } = await get("/articles");
+        setArticles(articles);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
     };
+
     fetchArticles();
   }, []);
+
   return { articles, loading, error };
 };
