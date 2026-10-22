@@ -1,0 +1,18 @@
+.topic-list-page {
+  height: 100vh;
+  width: stretch;
+  display: flex;
+  flex-direction: column;
+  column-gap: 2rem;
+  gap: 2rem;
+  margin: 1rem;
+  align-items: center;
+}
+
+.topic-list {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 80vw;
+}
