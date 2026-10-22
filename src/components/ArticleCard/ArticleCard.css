@@ -1,0 +1,123 @@
+.article-card {
+  font-family:
+    apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    Fira Sans,
+    Droid Sans,
+    Helvetica Neue,
+    sans-serif;
+  text-align: center;
+
+  --box-shadow-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 25px 5px var(--box-shadow-color);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  max-width: 1000px;
+  height: auto;
+
+  padding: 1.5rem 2rem;
+  gap: 1.5rem;
+
+  transition:
+    transform 0.3s ease,
+    -webkit-transform 0.3s ease;
+}
+
+.topic {
+  font-weight: 500;
+  padding: 0.3rem;
+  width: 12rem;
+}
+
+.title {
+  font-size: large;
+  font-weight: 800;
+}
+
+.author {
+  color: #515151;
+  font-weight: 700;
+  font-size: small;
+}
+
+.date {
+  font-size: small;
+}
+
+.votes,
+.comments {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.meta {
+  font-size: small;
+  display: flex;
+  width: stretch;
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+@media (max-width: 600px) {
+  .article-summary-card {
+    padding: 1rem;
+    transform: none; /* optional: avoid zooming on mobile */
+  }
+
+  .topic {
+    width: auto;
+  }
+}
+
+.react-icon {
+  vertical-align: middle;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.whoandwhen {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.comments,
+.votes {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+
+  /* Optional: Ensures the icon and text stay neatly aligned */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.votes:focus-visible,
+.comments:focus-visible {
+  outline: 2px solid #3e91c1; /* Match your cooking theme or brand colour */
+  outline-offset: 2px;
+}
