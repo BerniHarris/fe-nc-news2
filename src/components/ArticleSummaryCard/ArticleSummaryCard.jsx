@@ -18,7 +18,6 @@ export const ArticleSummaryCard = ({ article }) => {
 
   return (
     <article
-      key={article.article_id}
       className="article-summary-card"
       data-testid="article-summary-card"
     >
