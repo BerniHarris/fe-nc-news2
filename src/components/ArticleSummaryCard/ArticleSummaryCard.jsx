@@ -8,6 +8,8 @@ export const ArticleSummaryCard = ({ article }) => {
 
   const { title, author, topic, votes, comment_count } = article;
 
+  // TODO look into topics and colours not being hardcoded and instead map over availible topics - not needed atm, however the possibility of being able to add new topics would mean itd be better
+
   const topicColour = {
     coding: "#f7b0be",
     cooking: "#3e91c1",

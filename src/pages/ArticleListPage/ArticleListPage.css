@@ -1,6 +1,11 @@
 .article-list-page {
-  height: 100%;
-  width: 100%;
+  height: stretch;
+  width: stretch;
+  display: flex;
+  flex-direction: column;
+  column-gap: 2rem;
+  gap: 2rem;
+  margin: 1rem;
 }
 
 .article-list {
@@ -26,4 +31,20 @@ h1 {
     Droid Sans,
     Helvetica Neue,
     sans-serif;
+}
+
+.topic-selector,
+.order-selector,
+.sort-by-selector {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+section.organise-articles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  gap: 1rem;
 }

@@ -23,8 +23,8 @@ api.interceptors.response.use(
   },
 );
 
-export async function get(path) {
-  const res = await api.get(path);
+export async function get(path, config) {
+  const res = await api.get(path, config);
   return res.data;
 }
 

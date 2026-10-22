@@ -89,3 +89,15 @@ describe("ArticlesListPage", () => {
     expect(screen.getByText(/loading.../i)).toBeInTheDocument();
   });
 });
+
+/* TODO 
+- sort renders
+- sort contains correct options
+- sorts as should
+- topic renders
+- topic filters correctly
+- topic renders correct cards
+- order renders
+- orders correcctly
+- does it render if there are no articles?
+*/

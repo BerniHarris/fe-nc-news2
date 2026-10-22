@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router";
-import { ArticleListPage } from "./pages//ArticleListPage/ArticleListPage";
+import { ArticleListPage } from "./pages/ArticleListPage/ArticleListPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 
 function App() {
