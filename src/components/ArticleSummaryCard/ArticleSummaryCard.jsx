@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import "./ArticleSummaryCard.css";
 import { FaRegHeart, FaRegCommentAlt } from "react-icons/fa";
 
@@ -6,9 +7,7 @@ export const ArticleSummaryCard = ({ article }) => {
     return null;
   }
 
-  const { title, author, topic, votes, comment_count } = article;
-
-  // TODO look into topics and colours not being hardcoded and instead map over availible topics - not needed atm, however the possibility of being able to add new topics would mean itd be better
+  const { title, author, topic, votes, comment_count, article_id } = article;
 
   const topicColour = {
     coding: "#f7b0be",
@@ -19,7 +18,8 @@ export const ArticleSummaryCard = ({ article }) => {
   const tagColour = { backgroundColor: `${topicColour[topic] || "#d3d3d3"}` };
 
   return (
-    <article
+    <Link
+      to={`/articles/${article_id}`}
       className="article-summary-card"
       data-testid="article-summary-card"
     >
@@ -50,6 +50,6 @@ export const ArticleSummaryCard = ({ article }) => {
           <p className="comment-count">{comment_count}</p>
         </div>
       </footer>
-    </article>
+    </Link>
   );
 };

@@ -10,7 +10,7 @@ export const useArticleList = (topic, sort_by, order) => {
     const fetchArticles = async () => {
       try {
         const { articles } = await get("/articles", {
-          params: { topic: topic, sort_by: sort_by, order: order }, // TODO - Add the config to test
+          params: { topic: topic, sort_by: sort_by, order: order },
         });
         setArticles(articles);
       } catch (err) {
@@ -45,7 +45,6 @@ export const useArticle = (articleId) => {
 
     fetchArticle();
   }, [articleId]);
-  console.log(article, error);
 
   return { article, loading, error };
 };

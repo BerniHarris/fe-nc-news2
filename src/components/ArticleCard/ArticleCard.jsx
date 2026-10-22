@@ -18,8 +18,6 @@ export const ArticleCard = ({ article }) => {
     votes,
   } = article;
 
-  // TODO look into topics and colours not being hardcoded and instead map over availible topics - not needed atm, however the possibility of being able to add new topics would mean itd be better
-
   const topicColour = {
     coding: "#f7b0be",
     cooking: "#3e91c1",
@@ -33,7 +31,10 @@ export const ArticleCard = ({ article }) => {
   const tagColour = { backgroundColor: `${topicColour[topic] || "#d3d3d3"}` };
 
   return (
-    <article className="article-card" data-testid="article-card">
+    <article
+      className="article-card"
+      data-testid={`article-card-${article_id}`}
+    >
       <header className="header">
         <div className="topic" data-testid="topicTag" style={tagColour}>
           {topic.toUpperCase()}
@@ -51,7 +52,7 @@ export const ArticleCard = ({ article }) => {
         </div>
         <p>{body}</p>
       </div>
-      <footer className="meta">
+      <footer className="article-card-footer">
         <button
           type="button"
           className="votes"

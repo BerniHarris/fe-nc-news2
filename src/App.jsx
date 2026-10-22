@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router";
+import { Route, Routes } from "react-router";
 import { ArticleListPage } from "./pages/ArticleListPage/ArticleListPage";
 import { ArticlePage } from "./pages/ArticlePage/ArticlePage";
 
@@ -7,7 +7,7 @@ import { NavBar } from "./components/NavBar/NavBar";
 
 function App() {
   return (
-    <Router>
+    <div>
       <NavBar />
       <main>
         <Routes>
@@ -17,7 +17,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
-    </Router>
+    </div>
   );
 }
 

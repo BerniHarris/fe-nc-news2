@@ -61,7 +61,7 @@
   gap: 0.5em;
 }
 
-.meta {
+.article-card-footer {
   font-size: small;
   display: flex;
   width: stretch;
@@ -74,7 +74,7 @@
 @media (max-width: 600px) {
   .article-summary-card {
     padding: 1rem;
-    transform: none; /* optional: avoid zooming on mobile */
+    transform: none;
   }
 
   .topic {
@@ -110,7 +110,6 @@
   color: inherit;
   cursor: pointer;
 
-  /* Optional: Ensures the icon and text stay neatly aligned */
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -118,6 +117,6 @@
 
 .votes:focus-visible,
 .comments:focus-visible {
-  outline: 2px solid #3e91c1; /* Match your cooking theme or brand colour */
+  outline: 2px solid #3e91c1;
   outline-offset: 2px;
 }

@@ -1,6 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import { ArticleSummaryCard } from "./ArticleSummaryCard.jsx";
 import { expect } from "vitest";
+import { MemoryRouter } from "react-router";
 
 describe("ArticleSummaryCard", () => {
   describe("correctly renders when passed a valid article", () => {
@@ -14,7 +15,11 @@ describe("ArticleSummaryCard", () => {
     };
 
     const setup = () => {
-      render(<ArticleSummaryCard article={article} />);
+      render(
+        <MemoryRouter initialEntries={["/articles"]}>
+          <ArticleSummaryCard article={article} />
+        </MemoryRouter>,
+      );
     };
     test("renders an article summary card", () => {
       setup();
@@ -67,8 +72,13 @@ describe("ArticleSummaryCard", () => {
     };
 
     const setup = (topic) => {
-      render(<ArticleSummaryCard article={article(topic)} />);
+      render(
+        <MemoryRouter initialEntries={["/articles"]}>
+          <ArticleSummaryCard article={article(topic)} />
+        </MemoryRouter>,
+      );
     };
+
     test("renders topic background colour correctly when the topic is coding", () => {
       setup("coding");
       const topic = screen.getByText(/coding/i);
