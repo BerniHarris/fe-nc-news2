@@ -1,0 +1,55 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #26a2a8;
+  padding: 0 2rem;
+  height: 60px;
+  color: #301934;
+  box-shadow: 0 2px 2px #869398;
+
+  text-align: center;
+  color: #301934;
+  font-size: large;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    Fira Sans,
+    Droid Sans,
+    Helvetica Neue,
+    sans-serif;
+}
+
+.navbar-links {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links a {
+  color: #301934;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.navbar-links a:hover {
+  color: #fe673a;
+}
+
+.navbar-links a.active-link {
+  color: white;
+  background-color: #301934;
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+}
