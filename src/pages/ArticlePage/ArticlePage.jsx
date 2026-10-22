@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import { useArticle } from "../../hooks/articleHooks.jsx";
+import { useArticle } from "../../hooks/articleHooks/articleHooks.jsx";
 import { ArticleCard } from "../../components/ArticleCard/ArticleCard.jsx";
 import "./ArticlePage.css";
 

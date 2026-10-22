@@ -1,4 +1,4 @@
-import { useArticleList } from "../../hooks/articleHooks";
+import { useArticleList } from "../../hooks/articleHooks/articleHooks";
 import { ArticleSummaryCard } from "../../components/ArticleSummaryCard/ArticleSummaryCard";
 import "./ArticleListPage.css";
 import { useState } from "react";

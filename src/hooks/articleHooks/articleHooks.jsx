@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { get } from "../../api";
+import { get } from "../../../api";
 
 export const useArticleList = (topic, sort_by, order) => {
   const [articles, setArticles] = useState([]);
