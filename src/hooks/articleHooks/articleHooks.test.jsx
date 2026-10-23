@@ -1,7 +1,7 @@
-vi.mock("../../api", () => ({ get: vi.fn() }));
+vi.mock("../../../api", () => ({ get: vi.fn() }));
 import { renderHook, waitFor } from "@testing-library/react";
 import { useArticleList, useArticle } from "./articleHooks.jsx";
-import { get } from "../../api";
+import { get } from "../../../api.js";
 import { cleanup } from "@testing-library/react";
 
 afterEach(() => {
