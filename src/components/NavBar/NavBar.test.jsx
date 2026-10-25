@@ -1,5 +1,5 @@
 import { expect } from "vitest";
-import { render, screen, fireEvent, act } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter, Routes, Route, useLocation } from "react-router";
 import { NavBar } from "./NavBar";
 
@@ -46,21 +46,21 @@ describe("NavBar", () => {
     );
 
     const homeLink = screen.getByRole("link", { name: /home/i });
-    act(() => {
+    waitFor(() => {
       fireEvent.click(homeLink);
     });
 
     expect(currentPath).toBe("/");
 
     const articlesLink = screen.getByRole("link", { name: /articles/i });
-    act(() => {
+    waitFor(() => {
       fireEvent.click(articlesLink);
     });
 
     expect(currentPath).toBe("/articles");
 
     const topicsLink = screen.getByRole("link", { name: /topics/i });
-    act(() => {
+    waitFor(() => {
       fireEvent.click(topicsLink);
     });
 

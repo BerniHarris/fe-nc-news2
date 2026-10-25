@@ -53,13 +53,14 @@ describe("ArticlePage", () => {
       const cards = await screen.findAllByTestId("mock-article-card");
       expect(cards).toHaveLength(1);
     });
-    test("renders top navigation bar", () => {
+    test("renders top navigation bar", async () => {
       render(
         <MemoryRouter initialEntries={["/articles"]}>
           <App />
         </MemoryRouter>,
       );
-      const navBar = screen.getByRole("navigation");
+
+      const navBar = await screen.findByRole("navigation");
       const articlesLink = screen.getByRole("link", { name: /articles/i });
       const topicsLink = screen.getByRole("link", { name: /topics/i });
       const homeLink = screen.getByRole("link", { name: /home/i });
