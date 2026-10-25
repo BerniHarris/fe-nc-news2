@@ -6,8 +6,6 @@ export const TopicCard = ({ topic }) => {
     return null;
   }
 
-  console.log(topic);
-
   const { slug, description } = topic;
 
   const topicColour = {

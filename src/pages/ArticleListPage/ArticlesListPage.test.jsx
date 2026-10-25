@@ -58,7 +58,10 @@ describe("ArticlesListPage", () => {
       );
 
       const cards = await screen.findAllByTestId("mock-article-card");
-      expect(cards).toHaveLength(2);
+
+      waitFor(() => {
+        expect(cards).toHaveLength(2);
+      });
       expect(cards[0]).toHaveTextContent("title");
       expect(cards[0]).not.toHaveTextContent("i'm a dog");
       expect(cards[1]).toHaveTextContent("i'm a dog");

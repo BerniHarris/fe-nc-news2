@@ -33,11 +33,11 @@ h1 {
     sans-serif;
 }
 
-.topic-selector,
-.order-selector,
-.sort-by-selector {
+.topic-dropdown-container,
+.order-dropdown-container,
+.sort_by-dropdown-container {
   display: flex;
-  justify-content: center;
+  align-items: center;
   gap: 1rem;
 }
 

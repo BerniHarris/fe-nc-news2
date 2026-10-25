@@ -1,10 +1,9 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, act } from "@testing-library/react";
 import { describe, test, expect, vi, beforeEach } from "vitest";
 import { TopicListPage } from "./TopicListPage";
 import api, { get } from "../../../api";
 import { MemoryRouter } from "react-router";
 import App from "../../App";
-import { TopicCard } from "../../components/TopicCard/TopicCard";
 
 vi.mock("../../components/TopicCard/TopicCard", () => {
   return {
@@ -63,12 +62,16 @@ describe("TopicListPage", () => {
           <App />
         </MemoryRouter>,
       );
+
       const navBar = screen.getByRole("navigation");
       const articlesLink = screen.getByRole("link", { name: /articles/i });
       const topicsLink = screen.getByRole("link", { name: /topics/i });
       const homeLink = screen.getByRole("link", { name: /home/i });
 
-      expect(navBar).toBeInTheDocument();
+      waitFor(() => {
+        expect(navBar).toBeInTheDocument();
+      });
+
       expect(articlesLink).not.toHaveClass();
       expect(articlesLink).toHaveAttribute("href", "/articles");
       expect(topicsLink).toHaveClass("active-link");
