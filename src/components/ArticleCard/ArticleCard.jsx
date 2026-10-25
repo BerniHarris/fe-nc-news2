@@ -41,7 +41,11 @@ export const ArticleCard = ({ article }) => {
         </div>
         <h2 className="title">{title.toUpperCase()}</h2>
       </header>
-      <img src={article_img_url} alt={`Cover for ${title}`} />
+      <img
+        src={article_img_url}
+        alt={`Cover for ${title}`}
+        className="article-image"
+      />
 
       <div className="article-body-wrapper">
         <div className="whoandwhen">

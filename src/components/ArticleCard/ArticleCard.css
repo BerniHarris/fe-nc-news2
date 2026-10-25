@@ -21,7 +21,7 @@
   justify-content: space-between;
   align-items: center;
 
-  max-width: 1000px;
+  max-width: stretch;
   height: auto;
 
   padding: 1.5rem 2rem;
@@ -30,6 +30,9 @@
   transition:
     transform 0.3s ease,
     -webkit-transform 0.3s ease;
+}
+.article-image {
+  max-width: stretch;
 }
 
 .topic {
