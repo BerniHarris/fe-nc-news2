@@ -6,23 +6,64 @@ import { useState } from "react";
 import { toTitleCase } from "../../utils/utils";
 
 export const ArticleListPage = () => {
-  const [searchParams] = useSearchParams();
-  const [topic, setTopic] = useState(searchParams.get("topic"));
-  const [sortBy, setSortBy] = useState(searchParams.get("sort_by"));
-  const [order, setOrder] = useState(searchParams.get("order"));
+  const [searchParams, setSearchParams] = useSearchParams();
+  const topic = searchParams.get("topic") || "";
+  const sortBy = searchParams.get("sort_by") || undefined;
+  const order = searchParams.get("order") || undefined;
   const { articles, loading, error } = useArticleList(topic, sortBy, order);
 
+  const handleTopicChange = (event) => {
+    const newParams = new URLSearchParams(searchParams);
+
+    if (event.target.value === "") {
+      newParams.delete("topic");
+    } else {
+      newParams.set("topic", event.target.value);
+    }
+
+    return setSearchParams(newParams);
+  };
+
+  const handleSortByChange = (event) => {
+    const newParams = new URLSearchParams(searchParams);
+
+    if (!event.target.value) {
+      newParams.delete("sort_by");
+    } else {
+      newParams.set("sort_by", event.target.value);
+    }
+
+    return setSearchParams(newParams);
+  };
+
+  const handleOrderChange = (event) => {
+    const newParams = new URLSearchParams(searchParams);
+
+    if (!event.target.value) {
+      newParams.delete("order");
+    } else {
+      newParams.set("order", event.target.value);
+    }
+
+    return setSearchParams(newParams);
+  };
+  console.log(order);
   const TopicSelector = () => {
     return (
       <section className="topic-selector">
         <label htmlFor="topic">Topic:</label>
         <select
           name="topic"
-          value={topic || ""}
-          onChange={(event) => setTopic(event.target.value)}
+          value={topic}
+          onChange={handleTopicChange}
           id="topic"
         >
-          <option value="">-- Select a Topic --</option>
+          {!topic && (
+            <option value="" disabled default>
+              -- Topic --
+            </option>
+          )}
+          {topic && <option value="">❌ Clear Selection</option>}
 
           <option value="coding">coding</option>
           <option value="cooking">cooking</option>
@@ -38,30 +79,37 @@ export const ArticleListPage = () => {
         <label htmlFor="order">Order:</label>
         <select
           name="order"
-          value={order || "desc"}
-          onChange={(event) => setOrder(event.target.value)}
+          value={order || ""}
+          onChange={handleOrderChange}
           id="order"
         >
-          <option value="desc">-- Select an order --</option>
-
+          {!order && (
+            <option value="" disabled>
+              -- Order --
+            </option>
+          )}
+          {order && <option value="">❌ Clear Selection</option>}
           <option value="asc">asc</option>
           <option value="desc">desc</option>
         </select>
       </section>
     );
   };
-
   const SortBySelector = () => {
     return (
       <section className="sort-by-selector">
         <label htmlFor="sort">Sort by:</label>
         <select
-          name="sort"
+          name="sort_by"
           value={sortBy || ""}
-          onChange={(event) => setSortBy(event.target.value)}
-          id="sort"
+          onChange={handleSortByChange}
+          id="sort_by"
         >
-          <option value="">-- Select way to sort --</option>
+          <option value="" disabled>
+            -- Sort --
+          </option>
+
+          {sortBy && <option value="">❌ Clear Selection</option>}
 
           <option value="author">author</option>
           <option value="title">title</option>
@@ -79,16 +127,16 @@ export const ArticleListPage = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message || error}</p>;
 
-  const pageHeader = "Articles";
+  const pageHeader = topic ? `${toTitleCase(topic)} Articles` : "Articles";
 
   return (
     <div className="article-list-page" data-testid="article-list-page">
       <h1>{pageHeader}</h1>
-      <section className="organise-articles">
-        <TopicSelector onChange={Event} />
-        <OrderSelector onChange={Event} />
-        <SortBySelector onChange={Event} />
-      </section>
+      <form className="organise-articles" onSubmit={(e) => e.preventDefault()}>
+        <TopicSelector />
+        <OrderSelector />
+        <SortBySelector />
+      </form>
 
       <section className="article-list">
         {articles && articles.length > 0 ? (

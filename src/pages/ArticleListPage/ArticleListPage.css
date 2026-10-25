@@ -41,7 +41,7 @@ h1 {
   gap: 1rem;
 }
 
-section.organise-articles {
+form.organise-articles {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
