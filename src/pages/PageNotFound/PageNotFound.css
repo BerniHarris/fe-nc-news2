@@ -1,0 +1,11 @@
+.page-not-found-container {
+  display: flex;
+  justify-content: center;
+  height: stretch;
+}
+.page-not-found-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
