@@ -7,7 +7,7 @@ export const useCommentList = (article_id) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchArticles = async () => {
+    const fetchComments = async () => {
       try {
         const { comments } = await get(`/articles/${article_id}/comments`, {
           params: { article_id },
@@ -20,7 +20,7 @@ export const useCommentList = (article_id) => {
       }
     };
 
-    fetchArticles();
+    fetchComments();
   }, [article_id]);
 
   return { comments, loading, error };

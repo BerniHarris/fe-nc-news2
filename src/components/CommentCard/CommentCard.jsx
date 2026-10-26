@@ -7,12 +7,12 @@ export const CommentCard = ({ comment }) => {
     return null;
   }
 
-  const { body, author, votes, created_at, article_id } = comment;
+  const { body, author, votes, created_at, article_id, comment_id } = comment;
 
   return (
     <section
       className="comment-card"
-      data-testid={`comment-card-${article_id}`}
+      data-testid={`comment-card-${comment_id}`}
     >
       <header className="comment-body-wrapper">
         <div className="whoandwhenComment">

@@ -7,11 +7,23 @@ import { useCommentList } from "../../hooks/commentHooks/commentHooks.jsx";
 
 export const ArticlePage = () => {
   const { article_id: articleId } = useParams();
-  const { article, loading, error } = useArticle(articleId);
-  const { comments } = useCommentList(articleId);
+  const {
+    article,
+    loading: articleLoading,
+    error: articleErrors,
+  } = useArticle(articleId);
+  const {
+    comments,
+    loading: commentsLoading,
+    error: commentsErrors,
+  } = useCommentList(articleId);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message || error}</p>;
+  if (articleLoading || commentsLoading) return <p>Loading...</p>;
+  if (articleErrors)
+    return <p>Error: {articleErrors.message || articleErrors}</p>;
+  if (commentsErrors)
+    return <p>Error: {commentsErrors.message || commentsErrors}</p>;
+
   return (
     <div className="article-page" data-testid="article-page">
       <ArticleCard article={article} />
@@ -22,7 +34,7 @@ export const ArticlePage = () => {
               <CommentCard key={comment.comment_id} comment={comment} />
             ))
           ) : (
-            <p data-testid="no-articles">No comments found.</p>
+            <p data-testid="no-comments">No comments found.</p>
           )}
         </section>
       </div>

@@ -16,7 +16,7 @@ export const TopicListPage = () => {
 
       <section className="topic-list">
         {topics && topics.length > 0 ? (
-          topics.map((topic) => <TopicCard topic={topic} />)
+          topics.map((topic) => <TopicCard key={topic.slug} topic={topic} />)
         ) : (
           <p data-testid="no-topics">No topics found.</p>
         )}
