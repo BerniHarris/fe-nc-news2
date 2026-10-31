@@ -28,4 +28,9 @@ export async function get(path, config) {
   return res.data;
 }
 
+export async function post(path, config) {
+  const res = await api.post(path, config);
+  return res.data;
+}
+
 export default api;
