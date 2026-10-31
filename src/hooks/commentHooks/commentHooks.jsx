@@ -3,23 +3,27 @@ import { get, post } from "../../../api";
 
 export const useCommentList = (article_id) => {
   const [comments, setComments] = useState([]);
-  const [commentsLoading, setCommentsLoading] = useState(true);
+  const [commentsLoading, setCommentsLoading] = useState(false);
   const [commentsErrors, setCommentsErrors] = useState(null);
 
-  const fetchComments = async () => {
-    try {
-      const { comments } = await get(`/articles/${article_id}/comments`, {
-        params: { article_id },
-      });
-      setComments(comments);
-    } catch (err) {
-      setCommentsErrors(err);
-    } finally {
-      setCommentsLoading(false);
-    }
-  };
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        setCommentsLoading(true);
+        const { comments } = await get(`/articles/${article_id}/comments`, {
+          params: { article_id },
+        });
+        setComments(comments);
+        return comments;
+      } catch (err) {
+        setCommentsErrors(err);
+      } finally {
+        setCommentsLoading(false);
+      }
+    };
 
-  fetchComments();
+    fetchComments();
+  }, [article_id]);
 
   return {
     comments,
@@ -44,6 +48,7 @@ export const useCreateComment = (article_id) => {
         commentBody,
       );
       setNewComment(comment);
+      return comment;
     } catch (error) {
       setCommentError(error);
       throw error;
@@ -51,6 +56,5 @@ export const useCreateComment = (article_id) => {
       setCommentLoading(false);
     }
   };
-
   return { submitComment, newComment, commentError, commentLoading };
 };

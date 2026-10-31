@@ -28,6 +28,7 @@ export const useArticleList = (topic, sort_by, order) => {
 
 export const useArticle = (articleId) => {
   const [article, setArticle] = useState();
+  const [commentCount, setCommentCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -36,6 +37,7 @@ export const useArticle = (articleId) => {
       try {
         const { article } = await get(`/articles/${articleId}`);
         setArticle(article);
+        return article;
       } catch (err) {
         setError(err);
       } finally {
@@ -46,5 +48,5 @@ export const useArticle = (articleId) => {
     fetchArticle();
   }, [articleId]);
 
-  return { article, loading, error };
+  return { article, commentCount, loading, error };
 };
