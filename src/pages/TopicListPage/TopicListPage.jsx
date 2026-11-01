@@ -1,5 +1,5 @@
 import { TopicCard } from "../../components/TopicCard/TopicCard";
-import { useTopics } from "../../hooks/TopicHooks/TopicHooks";
+import { useTopics } from "../../hooks/topicHooks/topicHooks.jsx";
 import "./TopicListPage.css";
 
 export const TopicListPage = () => {
