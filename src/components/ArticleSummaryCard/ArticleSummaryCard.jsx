@@ -1,13 +1,21 @@
 import { Link } from "react-router";
 import "./ArticleSummaryCard.css";
-import { FaRegHeart, FaRegCommentAlt } from "react-icons/fa";
+import { Votes } from "../Votes/Votes.jsx";
+import { Comments } from "../../components/Comments/Comments.jsx";
 
 export const ArticleSummaryCard = ({ article }) => {
   if (!article) {
     return null;
   }
 
-  const { title, author, topic, votes, comment_count, article_id } = article;
+  const {
+    title,
+    author,
+    topic,
+    votes,
+    comment_count: commentCount,
+    article_id,
+  } = article;
 
   const topicColour = {
     coding: "#f7b0be",
@@ -33,22 +41,8 @@ export const ArticleSummaryCard = ({ article }) => {
         <p className="author" data-testid="author">
           By {author}
         </p>
-        <div className="votes" data-testid="votes">
-          <FaRegHeart
-            size={"1.5em"}
-            className="react-icon"
-            data-testid="votesHeart"
-          />
-          <p>{votes}</p>
-        </div>
-        <div className="comments" data-testid="comments">
-          <FaRegCommentAlt
-            size={"1.4em"}
-            className="react-icon"
-            data-testid="commentBubble"
-          />
-          <p className="comment-count">{comment_count}</p>
-        </div>
+        <Votes votes={votes} />
+        <Comments commentCount={commentCount} />
       </footer>
     </Link>
   );

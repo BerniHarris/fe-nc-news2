@@ -49,7 +49,7 @@ export const ArticlePage = () => {
 
   return (
     <div className="article-page" data-testid="article-page">
-      <ArticleCard article={article} />
+      <ArticleCard article={article} commentNumber={comments.length} />
       <div>
         <form
           onSubmit={handleSubmit}
@@ -75,6 +75,7 @@ export const ArticlePage = () => {
             Comment:
           </label>
           <textarea
+            className="comment-input"
             type="text"
             id="body"
             value={formData.body}

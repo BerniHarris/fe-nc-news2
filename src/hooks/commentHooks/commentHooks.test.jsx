@@ -106,7 +106,7 @@ describe("useCreateComment", () => {
     });
 
     await waitFor(() => {
-      expect(result.current.commentError).toBeInstanceOf(Error);
+      expect(result.current.commentError).toThrow(Error);
     });
 
     expect(result.current.commentError.message).toBe("Network error");

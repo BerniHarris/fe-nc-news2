@@ -1,6 +1,7 @@
 import { formattedDate } from "../../utils/utils";
 import "./CommentCard.css";
 import { FaRegHeart, FaRegCommentAlt } from "react-icons/fa";
+import { Votes } from "../Votes/Votes";
 
 export const CommentCard = ({ comment }) => {
   if (!comment) {
@@ -24,19 +25,7 @@ export const CommentCard = ({ comment }) => {
         <p>{body}</p>
       </header>
       <footer className="article-card-footer">
-        <button
-          type="button"
-          className="votes"
-          data-testid="votes"
-          aria-label={`Current votes: ${votes}`}
-        >
-          <FaRegHeart
-            size={"1.5em"}
-            className="react-icon"
-            data-testid="votesHeart"
-          />
-          <p>{votes}</p>
-        </button>
+        <Votes votes={votes} />
       </footer>
     </section>
   );

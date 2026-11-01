@@ -20,7 +20,7 @@ describe("ArticleCard", () => {
     const setup = () => {
       render(
         <MemoryRouter initialEntries={["/articles/199"]}>
-          <ArticleCard article={article} />
+          <ArticleCard article={article} commentNumber={2} />
         </MemoryRouter>,
       );
     };

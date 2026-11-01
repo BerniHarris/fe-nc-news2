@@ -1,17 +1,17 @@
 import "./ArticleCard.css";
-import { FaRegHeart, FaRegCommentAlt } from "react-icons/fa";
+import { Votes } from "../../components/Votes/Votes";
+import { Comments } from "../Comments/Comments";
 
-export const ArticleCard = ({ article }) => {
+export const ArticleCard = ({ article, commentNumber }) => {
   if (!article) {
     return null;
   }
-
   const {
     article_id,
     article_img_url,
     author,
     body,
-    comment_count,
+    comment_count: commentCount,
     created_at,
     title,
     topic,
@@ -57,32 +57,8 @@ export const ArticleCard = ({ article }) => {
         <p>{body}</p>
       </div>
       <footer className="article-card-footer">
-        <button
-          type="button"
-          className="votes"
-          data-testid="votes"
-          aria-label={`Current votes: ${votes}`}
-        >
-          <FaRegHeart
-            size={"1.5em"}
-            className="react-icon"
-            data-testid="votesHeart"
-          />
-          <p>{votes}</p>
-        </button>
-        <button
-          type="button"
-          className="comments"
-          data-testid="comments"
-          aria-label={`Current number of comments: ${comment_count}`}
-        >
-          <FaRegCommentAlt
-            size={"1.4em"}
-            className="react-icon"
-            data-testid="commentBubble"
-          />
-          <p className="comment-count">{comment_count}</p>
-        </button>
+        <Votes votes={votes} />
+        <Comments commentCount={commentNumber} />
       </footer>
     </article>
   );

@@ -58,7 +58,6 @@ input {
   border: none;
   border-radius: 5px;
   font-size: 16px;
-  height: 5rem;
   margin: 1rem;
   padding: 0.2rem;
   text-align: center;
@@ -109,4 +108,9 @@ input {
   padding: 5px 25px;
   text-decoration: none;
   width: fit-content;
+}
+
+.comment-input {
+  height: 5rem;
+  width: 80%;
 }
