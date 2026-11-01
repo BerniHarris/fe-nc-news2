@@ -1,21 +1,21 @@
 import { formattedDate } from "../../utils/utils";
 import "./CommentCard.css";
-import { FaRegHeart, FaRegCommentAlt } from "react-icons/fa";
 import { Votes } from "../Votes/Votes";
+import { DeleteComment } from "../DeleteComment/DeleteComment";
 
-export const CommentCard = ({ comment }) => {
+export const CommentCard = ({ comment, handleDelete }) => {
   if (!comment) {
     return null;
   }
 
-  const { body, author, votes, created_at, article_id, comment_id } = comment;
+  const { body, author, votes, created_at, comment_id: commentId } = comment;
 
   return (
-    <section
-      className="comment-card"
-      data-testid={`comment-card-${comment_id}`}
-    >
-      <header className="comment-body-wrapper">
+    <section className="comment-card" data-testid={`comment-card-${commentId}`}>
+      <header
+        className="comment-body-wrapper"
+        data-testid="comment-body-wrapper"
+      >
         <div className="whoandwhenComment">
           <address className="author" data-testid="author">
             By {author}
@@ -26,6 +26,7 @@ export const CommentCard = ({ comment }) => {
       </header>
       <footer className="article-card-footer">
         <Votes votes={votes} />
+        <DeleteComment commentId={commentId} handleDelete={handleDelete} />
       </footer>
     </section>
   );

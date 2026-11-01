@@ -13,7 +13,9 @@ export const Comments = ({ commentCount }) => {
         className="react-icon"
         data-testid="commentBubble"
       />
-      <p className="comment-count">{commentCount}</p>
+      <p className="comment-count" data-testid="comment-count">
+        {commentCount}
+      </p>
     </button>
   );
 };

@@ -8,7 +8,8 @@ import { CommentCard } from "../../components/CommentCard/CommentCard.jsx";
 import {
   useCommentList,
   useCreateComment,
-} from "../../hooks/commentHooks/commentHooks.jsx";
+  useDeleteComment,
+} from "../../hooks/useComments/useComments.jsx";
 
 export const ArticlePage = () => {
   const { article_id: articleId } = useParams();
@@ -26,6 +27,7 @@ export const ArticlePage = () => {
 
   const { submitComment, commentLoading, commentError } =
     useCreateComment(articleId);
+  const { removeComment } = useDeleteComment();
 
   const [formData, setFormData] = useState({ username: "", body: "" });
 
@@ -47,6 +49,15 @@ export const ArticlePage = () => {
     setFormData({ username: "", body: "" });
   };
 
+  const handleDelete = async (e, comment) => {
+    e.preventDefault();
+    await removeComment(comment.comment_id);
+    setComments(
+      comments.filter(
+        (prevComment) => prevComment.comment_id !== comment.comment_id,
+      ),
+    );
+  };
   return (
     <div className="article-page" data-testid="article-page">
       <ArticleCard article={article} commentNumber={comments.length} />
@@ -86,7 +97,11 @@ export const ArticlePage = () => {
             autoComplete="off"
             required
           />
-          <button type="submit" className="submit-button">
+          <button
+            type="submit"
+            className="submit-button"
+            data-testid="submit-button"
+          >
             Submit Comment
           </button>
         </form>
@@ -94,7 +109,11 @@ export const ArticlePage = () => {
           <h3 className="comments-header">Comments:</h3>
           {comments && comments.length > 0 ? (
             comments.map((comment) => (
-              <CommentCard key={comment.comment_id} comment={comment} />
+              <CommentCard
+                key={comment.comment_id}
+                comment={comment}
+                handleDelete={(e) => handleDelete(e, comment)}
+              />
             ))
           ) : (
             <p data-testid="no-comments">No comments found.</p>
