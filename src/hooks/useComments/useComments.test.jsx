@@ -1,9 +1,13 @@
 vi.mock("../../../api.js", () => {
-  return { get: vi.fn(), post: vi.fn() };
+  return { get: vi.fn(), post: vi.fn(), deleteReq: vi.fn() };
 });
 import { renderHook, waitFor, act } from "@testing-library/react";
-import { useCommentList, useCreateComment } from "./commentHooks.jsx";
-import { get, post } from "../../../api.js";
+import {
+  useCommentList,
+  useCreateComment,
+  useDeleteComment,
+} from "./useComments.jsx";
+import { deleteReq, get, post } from "../../../api.js";
 import { cleanup } from "@testing-library/react";
 import { expect } from "vitest";
 
@@ -41,13 +45,15 @@ describe("useCommentList", () => {
     get.mockRejectedValue(new Error("Network error"));
 
     const { result } = renderHook(() => useCommentList());
-
     await waitFor(() => {
-      expect(result.current.commentsLoading).toBe(false);
+      expect(result.current.commentsErrors).not.toBeNull();
     });
 
     expect(result.current.comments).toEqual([]);
+    expect(result.current.commentsLoading).toBe(false);
     expect(result.current.commentsErrors).toBeInstanceOf(Error);
+
+    expect(result.current.commentsErrors.message).toBe("Network error");
   });
 });
 
@@ -96,21 +102,72 @@ describe("useCreateComment", () => {
 
     const { result } = renderHook(() => useCreateComment(199));
 
-    act(() => {
-      result.current
-        .submitComment({
+    await act(async () => {
+      try {
+        await result.current.submitComment({
           username: "otis",
           body: "Awesome read!",
-        })
-        .catch(() => {});
+        });
+      } catch (error) {}
     });
 
-    await waitFor(() => {
-      expect(result.current.commentError).toThrow(Error);
-    });
+    expect(result.current.commentError).toBeInstanceOf(Error);
 
     expect(result.current.commentError.message).toBe("Network error");
     expect(result.current.newComment).toEqual({});
     expect(result.current.commentLoading).toBe(false);
+  });
+
+  describe("useDeleteComment", () => {
+    test("should return initial states", () => {
+      const { result } = renderHook(() => useDeleteComment());
+
+      expect(result.current.deleteLoading).toBe(false);
+      expect(result.current.deleteError).toBeNull();
+      expect(typeof result.current.removeComment).toBe("function");
+    });
+
+    test("should delete a comment successfully and manage loading state", async () => {
+      deleteReq.mockResolvedValue({});
+
+      const { result } = renderHook(() => useDeleteComment());
+
+      let deletePromise;
+
+      act(() => {
+        deletePromise = result.current.removeComment(42);
+      });
+
+      expect(result.current.deleteLoading).toBe(true);
+      expect(result.current.deleteError).toBeNull();
+
+      let deletedId;
+      await act(async () => {
+        deletedId = await deletePromise;
+      });
+
+      expect(deletedId).toBe(42);
+      expect(deleteReq).toHaveBeenCalledWith("/comments/42");
+      expect(result.current.deleteLoading).toBe(false);
+      expect(result.current.deleteError).toBeNull();
+    });
+
+    test("should handle API failure and track the error state", async () => {
+      deleteReq.mockRejectedValue(new Error("Failed to delete comment"));
+
+      const { result } = renderHook(() => useDeleteComment());
+
+      await act(async () => {
+        try {
+          await result.current.removeComment(42);
+        } catch (error) {}
+      });
+
+      expect(result.current.deleteLoading).toBe(false);
+      expect(result.current.deleteError).toBeInstanceOf(Error);
+      expect(result.current.deleteError.message).toBe(
+        "Failed to delete comment",
+      );
+    });
   });
 });
