@@ -24,7 +24,7 @@ export const CommentCard = ({ comment, handleDelete }) => {
         </div>
         <p>{body}</p>
       </header>
-      <footer className="article-card-footer">
+      <footer className="comment-card-footer">
         <Votes votes={votes} />
         <DeleteComment commentId={commentId} handleDelete={handleDelete} />
       </footer>
