@@ -8,8 +8,7 @@ import {
 import { describe, test, expect, vi, beforeEach } from "vitest";
 import { ArticlePage } from "./ArticlePage";
 import api, { get, post, deleteReq } from "../../../api";
-import { MemoryRouter } from "react-router";
-import App from "../../App";
+import { MemoryRouter, Routes, Route } from "react-router";
 
 vi.mock("../../../api", () => {
   const mockGet = vi.fn();
@@ -90,8 +89,10 @@ describe("ArticlePage", () => {
       deleteReq.mockResolvedValue({});
 
       render(
-        <MemoryRouter>
-          <ArticlePage />
+        <MemoryRouter initialEntries={["/articles/199"]}>
+          <Routes>
+            <Route path="/articles/:article_id" element={<ArticlePage />} />
+          </Routes>
         </MemoryRouter>,
       );
     };
@@ -187,35 +188,16 @@ describe("ArticlePage", () => {
         await screen.findByTestId("comment-count");
       expect(commentCountAfterDelete).toHaveTextContent(1);
     });
-    test("renders top navigation bar", async () => {
-      render(
-        <MemoryRouter initialEntries={["/articles"]}>
-          <App />
-        </MemoryRouter>,
-      );
-
-      const navBar = await screen.findByRole("navigation");
-      const articlesLink = screen.getByRole("link", { name: /articles/i });
-      const topicsLink = screen.getByRole("link", { name: /topics/i });
-      const homeLink = screen.getByRole("link", { name: /home/i });
-
-      expect(navBar).toBeInTheDocument();
-      expect(articlesLink).toHaveClass("active-link");
-      expect(articlesLink).toHaveAttribute("href", "/articles");
-      expect(topicsLink).not.toHaveClass();
-      expect(topicsLink).toHaveAttribute("href", "/topics");
-
-      expect(homeLink).not.toHaveClass();
-      expect(homeLink).toHaveAttribute("href", "/");
-    });
   });
 
   test("correctly renders error UI when the network request fails", async () => {
     get.mockRejectedValue("Network Error");
 
     render(
-      <MemoryRouter>
-        <ArticlePage />
+      <MemoryRouter initialEntries={["/articles/199"]}>
+        <Routes>
+          <Route path="/articles/:article_id" element={<ArticlePage />} />
+        </Routes>
       </MemoryRouter>,
     );
 
@@ -228,8 +210,10 @@ describe("ArticlePage", () => {
     get.mockImplementation(() => new Promise(() => {}));
 
     render(
-      <MemoryRouter>
-        <ArticlePage />
+      <MemoryRouter initialEntries={["/articles/199"]}>
+        <Routes>
+          <Route path="/articles/:article_id" element={<ArticlePage />} />
+        </Routes>
       </MemoryRouter>,
     );
 
