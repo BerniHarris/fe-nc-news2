@@ -37,4 +37,9 @@ export async function deleteReq(path, config) {
   const res = await api.delete(path, config);
   return res.data;
 }
+
+export async function patch(path, config) {
+  const res = await api.patch(path, config);
+  return res.data;
+}
 export default api;
