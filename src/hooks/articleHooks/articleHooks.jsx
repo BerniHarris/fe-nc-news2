@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { get } from "../../../api";
+import { get, patch } from "../../../api";
 
 export const useArticleList = (topic, sort_by, order) => {
   const [articles, setArticles] = useState([]);
@@ -28,12 +28,16 @@ export const useArticleList = (topic, sort_by, order) => {
 
 export const useArticle = (articleId) => {
   const [article, setArticle] = useState();
-  const [commentCount, setCommentCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchArticle = async () => {
+      if (!articleId) {
+        setError(new Error("Article ID is required"));
+        setLoading(false);
+        return;
+      }
       try {
         const { article } = await get(`/articles/${articleId}`);
         setArticle(article);
@@ -48,5 +52,38 @@ export const useArticle = (articleId) => {
     fetchArticle();
   }, [articleId]);
 
-  return { article, commentCount, loading, error };
+  return { article, setArticle, loading, error };
+};
+
+export const useUpdateArticle = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const updateArticle = async (article_id, voteInc) => {
+    setLoading(true);
+    setError(null);
+    if (!article_id || !voteInc) {
+      setError(new Error("Article ID and inc_vote is required"));
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const article = await patch(`/articles/${article_id}`, {
+        inc_votes: voteInc,
+      });
+      return article;
+    } catch (error) {
+      setError(error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    updateArticle,
+    loading,
+    error,
+  };
 };
