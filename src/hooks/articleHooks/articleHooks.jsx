@@ -56,6 +56,7 @@ export const useArticle = (articleId) => {
 };
 
 export const useUpdateArticle = () => {
+  const [updatedArticle, setUpdatedArticle] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -72,6 +73,7 @@ export const useUpdateArticle = () => {
       const article = await patch(`/articles/${article_id}`, {
         inc_votes: voteInc,
       });
+      setUpdatedArticle(article);
       return article;
     } catch (error) {
       setError(error);
@@ -83,6 +85,7 @@ export const useUpdateArticle = () => {
 
   return {
     updateArticle,
+    updatedArticle,
     loading,
     error,
   };

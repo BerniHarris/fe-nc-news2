@@ -194,12 +194,14 @@ describe("UseUpdateArticle", () => {
 
     const { result } = renderHook(() => useUpdateArticle());
 
-    const updatedArticle = await result.current.updateArticle(12, 1);
+    await act(async () => {
+      await result.current.updateArticle(12, 1);
+    });
 
     expect(patch).toHaveBeenCalledWith("/articles/12", {
       inc_votes: 1,
     });
-    expect(updatedArticle).toEqual(mockServerResponse);
+    expect(result.current.updatedArticle).toEqual(mockServerResponse);
     expect(result.current.loading).toBe(false);
     expect(result.current.error).toBe(null);
   });
