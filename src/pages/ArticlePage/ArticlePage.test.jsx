@@ -7,23 +7,26 @@ import {
 } from "@testing-library/react";
 import { describe, test, expect, vi, beforeEach } from "vitest";
 import { ArticlePage } from "./ArticlePage";
-import api, { get, post, deleteReq } from "../../../api";
+import api, { get, post, deleteReq, patch } from "../../../api";
 import { MemoryRouter, Routes, Route } from "react-router";
 
 vi.mock("../../../api", () => {
   const mockGet = vi.fn();
   const mockPost = vi.fn();
   const mockDelete = vi.fn();
+  const mockPatch = vi.fn();
 
   return {
     get: mockGet,
     post: mockPost,
     deleteReq: mockDelete,
+    patch: mockPatch,
 
     default: {
       get: mockGet,
       post: mockPost,
       deleteReq: mockDelete,
+      patch: mockPatch,
     },
   };
 });
@@ -98,9 +101,24 @@ describe("ArticlePage", () => {
     };
     test("correctly renders a single article", async () => {
       setup();
-
       const cards = await screen.findAllByTestId("article-card-199");
       expect(cards).toHaveLength(1);
+    });
+    test("correctly renders up and down vote buttons", async () => {
+      setup();
+      const voteButtons = await screen.findAllByTestId("votes-container");
+      const upvote = within(voteButtons[0]).getByTestId("upvote");
+      const voteCount = within(voteButtons[0]).getByTestId("vote-count");
+      const downvote = within(voteButtons[0]).getByTestId("downvote");
+
+      expect(upvote).toBeInTheDocument();
+      expect(voteCount).toHaveTextContent(0);
+      expect(downvote).toBeInTheDocument();
+
+      fireEvent.click(upvote);
+      expect(voteCount).toHaveTextContent(1);
+      fireEvent.click(downvote);
+      expect(voteCount).toHaveTextContent(0);
     });
     test("correctly renders a comment card list", async () => {
       setup();

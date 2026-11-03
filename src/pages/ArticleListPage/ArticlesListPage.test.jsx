@@ -2,9 +2,9 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter, useLocation } from "react-router";
 import { ArticleListPage } from "./ArticleListPage";
-import { useArticleList } from "../../hooks/articleHooks/articleHooks";
+import { useArticleList } from "../../hooks/useArticles/useArticles";
 
-vi.mock("../../hooks/articleHooks/articleHooks", () => ({
+vi.mock("../../hooks/useArticles/useArticles", () => ({
   useArticleList: vi.fn(),
 }));
 

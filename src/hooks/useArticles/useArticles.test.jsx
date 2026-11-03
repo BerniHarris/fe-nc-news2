@@ -4,7 +4,7 @@ import {
   useArticleList,
   useArticle,
   useUpdateArticle,
-} from "./articleHooks.jsx";
+} from "./useArticles.jsx";
 import { get, patch } from "../../../api.js";
 import { cleanup } from "@testing-library/react";
 

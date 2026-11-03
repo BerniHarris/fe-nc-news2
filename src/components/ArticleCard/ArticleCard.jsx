@@ -2,7 +2,12 @@ import "./ArticleCard.css";
 import { Votes } from "../../components/Votes/Votes";
 import { Comments } from "../Comments/Comments";
 
-export const ArticleCard = ({ article, commentNumber }) => {
+export const ArticleCard = ({
+  article,
+  commentNumber,
+  handleUpvote,
+  handleDownvote,
+}) => {
   if (!article) {
     return null;
   }
@@ -57,8 +62,12 @@ export const ArticleCard = ({ article, commentNumber }) => {
         <p>{body}</p>
       </div>
       <footer className="article-card-footer">
-        <Votes votes={votes} />
         <Comments commentCount={commentNumber} />
+        <Votes
+          votes={votes}
+          handleUpvote={handleUpvote}
+          handleDownvote={handleDownvote}
+        />
       </footer>
     </article>
   );

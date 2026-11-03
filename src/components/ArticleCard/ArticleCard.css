@@ -24,7 +24,7 @@
   max-width: stretch;
   height: auto;
 
-  padding: 1.5rem 2rem;
+  padding: 2rem;
   gap: 1.5rem;
 
   transition:
@@ -56,20 +56,13 @@
   font-size: small;
 }
 
-.votes,
-.comments {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.5em;
-}
-
 .article-card-footer {
-  font-size: small;
+  font-size: medium;
   display: flex;
   width: stretch;
   flex-direction: row;
   justify-content: flex-end;
+  align-items: center;
   flex-wrap: wrap;
   gap: 2rem;
 }

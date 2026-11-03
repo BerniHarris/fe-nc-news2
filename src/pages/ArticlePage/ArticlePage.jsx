@@ -1,7 +1,10 @@
 import { useParams } from "react-router";
 import { useState } from "react";
 
-import { useArticle } from "../../hooks/articleHooks/articleHooks.jsx";
+import {
+  useArticle,
+  useUpdateArticle,
+} from "../../hooks/useArticles/useArticles.jsx";
 import { ArticleCard } from "../../components/ArticleCard/ArticleCard.jsx";
 import "./ArticlePage.css";
 import { CommentCard } from "../../components/CommentCard/CommentCard.jsx";
@@ -15,6 +18,7 @@ export const ArticlePage = () => {
   const { article_id: articleId } = useParams();
   const {
     article,
+    setArticle,
     loading: articleLoading,
     error: articleErrors,
   } = useArticle(articleId);
@@ -28,7 +32,7 @@ export const ArticlePage = () => {
   const { submitComment, commentLoading, commentError } =
     useCreateComment(articleId);
   const { removeComment } = useDeleteComment();
-
+  const { updateArticle } = useUpdateArticle();
   const [formData, setFormData] = useState({ username: "", body: "" });
 
   if (articleLoading || commentsLoading || commentLoading)
@@ -58,9 +62,28 @@ export const ArticlePage = () => {
       ),
     );
   };
+
+  const handleUpvote = async (e, articleId) => {
+    e.preventDefault();
+    setArticle({ ...article, votes: article.votes + 1 });
+    updateArticle(articleId, 1);
+  };
+
+  const handleDownvote = async (e, articleId) => {
+    e.preventDefault();
+    setArticle({ ...article, votes: article.votes - 1 });
+    updateArticle(articleId, -1);
+  };
+
   return (
     <div className="article-page" data-testid="article-page">
-      <ArticleCard article={article} commentNumber={comments.length} />
+      <ArticleCard
+        article={article}
+        commentNumber={comments.length}
+        votes={article.votes}
+        handleUpvote={(e) => handleUpvote(e, articleId)}
+        handleDownvote={(e) => handleDownvote(e, articleId)}
+      />
       <div>
         <form
           onSubmit={handleSubmit}

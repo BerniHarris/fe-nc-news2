@@ -1,4 +1,4 @@
-import { useArticleList } from "../../hooks/articleHooks/articleHooks";
+import { useArticleList } from "../../hooks/useArticles/useArticles";
 import { ArticleSummaryCard } from "../../components/ArticleSummaryCard/ArticleSummaryCard";
 import "./ArticleListPage.css";
 import { useSearchParams } from "react-router";

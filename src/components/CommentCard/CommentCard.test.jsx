@@ -45,7 +45,7 @@ describe("CommentCard", () => {
     });
     test("renders correct number of votes and icon", () => {
       setup();
-      const votes = screen.getByTestId("votes");
+      const votes = screen.getByTestId("votes-container");
       const voteNum = within(votes).getByText("4");
       const voteIcon = within(votes).getByTestId("votesHeart");
 

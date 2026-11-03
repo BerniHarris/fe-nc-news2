@@ -1,19 +1,41 @@
-import { FaRegHeart } from "react-icons/fa";
+import { TbHeart, TbHeartBroken } from "react-icons/tb";
 
-export const Votes = ({ votes }) => {
+import "./votes.css";
+
+export const Votes = ({ votes, handleUpvote, handleDownvote }) => {
   return (
-    <button
-      type="button"
-      className="votes"
-      data-testid="votes"
-      aria-label={`Current votes: ${votes}`}
-    >
-      <FaRegHeart
-        size={"1.5em"}
-        className="react-icon"
-        data-testid="votesHeart"
-      />
-      <p className="vote-count">{votes}</p>
-    </button>
+    <div className="votes-container" data-testid="votes-container">
+      <button
+        type="button"
+        className="votes"
+        data-testid="upvote"
+        aria-label={`Current votes: ${votes}`}
+        onClick={handleUpvote}
+      >
+        <TbHeart
+          size={"1.7em"}
+          className="react-icon"
+          data-testid="votesHeart"
+        />
+      </button>
+      <p className="vote-count" data-testid="vote-count">
+        {votes}
+      </p>
+      {handleDownvote && (
+        <button
+          type="button"
+          className="votes"
+          data-testid="downvote"
+          aria-label={`Current votes: ${votes}`}
+          onClick={handleDownvote}
+        >
+          <TbHeartBroken
+            size={"1.7em"}
+            className="react-icon"
+            data-testid="votesHeart"
+          />
+        </button>
+      )}
+    </div>
   );
 };
