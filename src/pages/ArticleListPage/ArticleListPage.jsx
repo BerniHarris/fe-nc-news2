@@ -6,6 +6,7 @@ import { toTitleCase } from "../../utils/utils";
 import { OrderDropdown } from "../../components/filtering/OrderDropdown/OrderDopdown";
 import { TopicDropdown } from "../../components/filtering/TopicDropdown/TopicDropdown";
 import { SortDropdown } from "../../components/filtering/SortDropdown/SortDropdown";
+import { Loading } from "../../components/Loading/Loading";
 
 export const ArticleListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -27,7 +28,8 @@ export const ArticleListPage = () => {
     setSearchParams(newParams);
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading />;
+
   if (error) return <p>Error: {error.message || error}</p>;
 
   const pageHeader = topic ? `${toTitleCase(topic)} Articles` : "Articles";

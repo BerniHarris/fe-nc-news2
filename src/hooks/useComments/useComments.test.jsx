@@ -19,7 +19,7 @@ afterEach(() => {
 describe("useCommentList", () => {
   test("initial state", () => {
     get.mockReturnValue(new Promise(() => {}));
-    const { result } = renderHook(() => useCommentList());
+    const { result } = renderHook(() => useCommentList(1));
     expect(result.current.comments).toEqual([]);
     expect(result.current.commentsLoading).toBe(true);
     expect(result.current.commentsErrors).toBe(null);
@@ -30,7 +30,7 @@ describe("useCommentList", () => {
       comments: [{ article_id: 1, title: "Test" }],
     });
 
-    const { result } = renderHook(() => useCommentList());
+    const { result } = renderHook(() => useCommentList(1));
 
     await waitFor(() => {
       expect(result.current.commentsLoading).toBe(false);

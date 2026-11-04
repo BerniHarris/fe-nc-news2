@@ -118,7 +118,7 @@ describe("ArticleListPage", () => {
 
     renderPage();
 
-    expect(screen.getByText("Loading...")).toBeInTheDocument();
+    expect(screen.getByLabelText("Loading...")).toBeInTheDocument();
     expect(screen.queryByTestId("article-list-page")).not.toBeInTheDocument();
   });
 

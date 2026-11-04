@@ -120,6 +120,6 @@ describe("TopicListPage", () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByText(/loading.../i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/loading.../i)).toBeInTheDocument();
   });
 });
