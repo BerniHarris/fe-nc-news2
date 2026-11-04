@@ -13,6 +13,7 @@ import {
   useCreateComment,
   useDeleteComment,
 } from "../../hooks/useComments/useComments.jsx";
+import { Loading } from "../../components/Loading/Loading.jsx";
 
 export const ArticlePage = () => {
   const { article_id: articleId } = useParams();
@@ -35,8 +36,7 @@ export const ArticlePage = () => {
   const { updateArticle } = useUpdateArticle();
   const [formData, setFormData] = useState({ username: "", body: "" });
 
-  if (articleLoading || commentsLoading || commentLoading)
-    return <p>Loading...</p>;
+  if (articleLoading || commentsLoading || commentLoading) return <Loading />;
 
   if (articleErrors)
     return <p>Error: {articleErrors.message || articleErrors}</p>;

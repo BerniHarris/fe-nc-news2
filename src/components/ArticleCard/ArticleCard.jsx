@@ -16,7 +16,6 @@ export const ArticleCard = ({
     article_img_url,
     author,
     body,
-    comment_count: commentCount,
     created_at,
     title,
     topic,

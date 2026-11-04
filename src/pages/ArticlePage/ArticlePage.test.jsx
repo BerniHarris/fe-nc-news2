@@ -158,7 +158,7 @@ describe("ArticlePage", () => {
       });
       fireEvent.click(submit);
 
-      expect(screen.getByText(/loading.../i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/loading.../i)).toBeInTheDocument();
 
       const updatedComments = await screen.findAllByTestId(
         "comment-body-wrapper",
@@ -235,6 +235,6 @@ describe("ArticlePage", () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByText(/loading.../i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/loading.../i)).toBeInTheDocument();
   });
 });

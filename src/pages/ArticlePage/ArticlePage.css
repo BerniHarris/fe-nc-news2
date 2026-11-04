@@ -114,3 +114,8 @@ input {
   height: 5rem;
   width: 80%;
 }
+
+.loading-container {
+  height: 100vh;
+  width: 100%;
+}
