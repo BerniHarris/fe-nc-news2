@@ -33,11 +33,11 @@
 .author {
   color: #515151;
   font-weight: 700;
-  font-size: small;
+  font-size: medium;
 }
 
 .date {
-  font-size: small;
+  font-size: medium;
 }
 
 .votes,

@@ -13,7 +13,7 @@ describe("App", () => {
 
     expect(screen.getByRole("navigation")).toBeInTheDocument();
   });
-  test("renders ArticleListPage at /", async () => {
+  test("renders HomePage at /", async () => {
     render(
       <MemoryRouter initialEntries={["/"]}>
         <App />
@@ -21,7 +21,7 @@ describe("App", () => {
     );
 
     expect(
-      await screen.findByRole("heading", { name: /articles/i }),
+      await screen.findByRole("heading", { name: /home/i }),
     ).toBeInTheDocument();
   });
 

@@ -60,7 +60,7 @@
 }
 
 .meta {
-  font-size: small;
+  font-size: medium;
   display: flex;
   width: stretch;
   flex-direction: row;
@@ -74,7 +74,7 @@
 @media (max-width: 600px) {
   .article-summary-card {
     padding: 1rem;
-    transform: none; /* optional: avoid zooming on mobile */
+    transform: none;
   }
 
   .topic {
