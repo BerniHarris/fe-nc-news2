@@ -69,4 +69,13 @@ describe("App", () => {
       await screen.findByRole("heading", { name: /page not found/i }),
     ).toBeInTheDocument();
   });
+  test("renders footer", () => {
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByTestId("footer")).toBeInTheDocument();
+  });
 });

@@ -5,6 +5,7 @@ import { HomePage } from "./pages/HomePage/HomePage";
 import { TopicListPage } from "./pages/TopicListPage/TopicListPage";
 import { PageNotFound } from "./pages/PageNotFound/PageNotFound";
 import { NavBar } from "./components/NavBar/NavBar";
+import { Footer } from "./components/Footer/Footer";
 import "./App.css";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/topics/" element={<TopicListPage />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

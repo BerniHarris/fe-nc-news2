@@ -21,7 +21,10 @@ html,
   margin: 0;
 }
 .app {
-  min-height: 100%;
+  min-height: 100vh;
   min-width: 100%;
   margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
