@@ -27,18 +27,17 @@ describe("NavBar", () => {
     );
     expect(screen.getByRole("navigation")).toBeInTheDocument();
     const navLinks = screen.getAllByRole("link");
-    expect(navLinks.length).toBe(3);
+    expect(navLinks.length).toBe(4);
     expect(navLinks[0]).toHaveTextContent("Home");
     expect(navLinks[1]).toHaveTextContent("Articles");
     expect(navLinks[2]).toHaveTextContent("Topics");
+    expect(navLinks[3]).toHaveTextContent("Login");
   });
-  test("navigates to the exact topic URL path on click", async () => {
+  test("navigates to the currect URL path on click", async () => {
     render(
       <MemoryRouter initialEntries={["/topics"]}>
         <NavBar />
-
         <LocationFinder />
-
         <Routes>
           <Route path="*" element={null} />
         </Routes>
@@ -65,5 +64,12 @@ describe("NavBar", () => {
     });
 
     expect(currentPath).toBe("/topics");
+
+    const loginLink = screen.getByRole("link", { name: /login/i });
+    waitFor(() => {
+      fireEvent.click(loginLink);
+    });
+
+    expect(currentPath).toBe("/login");
   });
 });
