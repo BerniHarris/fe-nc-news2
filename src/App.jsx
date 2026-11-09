@@ -4,15 +4,23 @@ import { ArticlePage } from "./pages/ArticlePage/ArticlePage";
 import { HomePage } from "./pages/HomePage/HomePage";
 import { TopicListPage } from "./pages/TopicListPage/TopicListPage";
 import { PageNotFound } from "./pages/PageNotFound/PageNotFound";
+import { LoginPage } from "./pages/LoginPage/LoginPage";
+
 import { NavBar } from "./components/NavBar/NavBar";
 import { Footer } from "./components/Footer/Footer";
+import { useAuth } from "./Context/AuthContext/AuthContext";
+
 import "./App.css";
 
 function App() {
+  const { user } = useAuth();
+  console.log(user);
+
   return (
     <div className="app">
       <NavBar />
       <Routes>
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/articles" element={<ArticleListPage />} />
         <Route path="/articles/:article_id" element={<ArticlePage />} />
