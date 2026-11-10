@@ -1,6 +1,10 @@
 import { NavLink } from "react-router";
+import { useAuth } from "../../Context/AuthContext/AuthContext";
+
 import "./NavBar.css";
 export const NavBar = () => {
+  const { user, loggedIn } = useAuth();
+
   return (
     <nav className="navbar">
       <ul className="navbar-links">
@@ -33,12 +37,31 @@ export const NavBar = () => {
         </div>
         <div className="login">
           <li>
-            <NavLink
-              to="/login"
-              className={({ isActive }) => (isActive ? "active-link" : "")}
-            >
-              Login
-            </NavLink>
+            {loggedIn && user && (
+              <NavLink
+                to="/login"
+                className={({ isActive }) =>
+                  isActive ? "active-link avatar" : "avatar"
+                }
+                data-testid="nav-login"
+              >
+                <img
+                  src={user.avatar_url}
+                  alt={`${user.username} avatar`}
+                  className="nav-avatar"
+                />
+              </NavLink>
+            )}
+
+            {!loggedIn && (
+              <NavLink
+                to="/login"
+                className={({ isActive }) => (isActive ? "active-link" : "")}
+                data-testid="nav-login"
+              >
+                Login
+              </NavLink>
+            )}
           </li>
         </div>
       </ul>

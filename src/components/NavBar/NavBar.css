@@ -14,6 +14,7 @@
 .navbar-links {
   display: flex;
   flex-direction: row;
+  align-items: center;
   list-style: none;
   gap: 2rem;
   color: #301934;
@@ -22,6 +23,7 @@
   transition: color 0.2s;
   font-size: large;
   width: 100%;
+  margin: 1rem 0rem;
 }
 
 .navbar-links a:hover {
@@ -39,4 +41,26 @@
   width: 100%;
   display: flex;
   gap: inherit;
+  align-items: center;
+}
+
+a.active-link.avatar {
+  background: none;
+  display: flex;
+  align-items: center;
+  padding: 0px;
+  margin: 0px;
+}
+
+img.nav-avatar {
+  height: 2.5rem;
+  display: flex;
+  margin: 0px;
+  padding: 0px;
+  border-radius: 999px;
+}
+
+img.nav-avatar.active-link-avatar {
+  border-color: #301934;
+  border-width: 5px;
 }
