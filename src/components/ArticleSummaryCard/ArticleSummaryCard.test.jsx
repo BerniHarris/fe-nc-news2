@@ -12,6 +12,7 @@ describe("ArticleSummaryCard", () => {
       votes: 0,
       comment_count: 2,
       article_id: 199,
+      article_img_url: "www.image1.com",
     };
 
     const setup = () => {
@@ -57,6 +58,12 @@ describe("ArticleSummaryCard", () => {
 
       expect(commentNum).toBeInTheDocument();
       expect(commentIcon).toBeInTheDocument();
+    });
+    test("renders article image", () => {
+      setup();
+      const image = screen.getByRole("img", { class: "article-image" });
+
+      expect(image).toBeInTheDocument();
     });
   });
   describe("correctly renders topic tags background colour", () => {

@@ -102,3 +102,19 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+.article-image-container {
+  position: relative;
+
+  width: 100%;
+  height: 15rem;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.article-image {
+  position: relative;
+
+  width: 100%;
+  object-fit: cover;
+}

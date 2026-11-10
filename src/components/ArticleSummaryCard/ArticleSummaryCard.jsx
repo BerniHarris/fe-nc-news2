@@ -15,6 +15,7 @@ export const ArticleSummaryCard = ({ article }) => {
     votes,
     comment_count: commentCount,
     article_id,
+    article_img_url: image,
   } = article;
 
   const topicColour = {
@@ -32,6 +33,9 @@ export const ArticleSummaryCard = ({ article }) => {
       data-testid="article-summary-card"
     >
       <header className="header">
+        <div className="article-image-container">
+          <img src={image} className="article-image" />
+        </div>
         <p className="topic" data-testid="topicTag" style={tagColour}>
           {topic.toUpperCase()}
         </p>
