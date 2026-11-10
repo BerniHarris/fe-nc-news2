@@ -83,6 +83,27 @@ describe("NavBar", () => {
 
     expect(currentPath).toBe("/login");
   });
+  test("should toggle mobile side navigation menu on burger button click", async () => {
+    setup();
+    window.innerWidth = 500;
+    window.dispatchEvent(new Event("resize"));
+
+    const burgerButton = screen.getByRole("button", { class: /burger-menu/i });
+    const navLinksList = screen.getByRole("list");
+
+    expect(navLinksList.className).not.toContain("open");
+
+    fireEvent.click(burgerButton);
+
+    expect(navLinksList.className).toContain("open");
+
+    expect(
+      screen.getByRole("button", { class: /close-button/i }),
+    ).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { class: /close-button/i }));
+    expect(navLinksList.className).not.toContain("open");
+  });
   describe("NavBar Login", () => {
     test("shows Login link when user is not logged in", () => {
       mockUseAuth.mockReturnValue({
