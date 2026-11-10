@@ -8,14 +8,10 @@ import { LoginPage } from "./pages/LoginPage/LoginPage";
 
 import { NavBar } from "./components/NavBar/NavBar";
 import { Footer } from "./components/Footer/Footer";
-import { useAuth } from "./Context/AuthContext/AuthContext";
 
 import "./App.css";
 
 function App() {
-  const { user } = useAuth();
-  console.log(user);
-
   return (
     <div className="app">
       <NavBar />
