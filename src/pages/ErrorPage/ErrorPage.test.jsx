@@ -1,5 +1,5 @@
 import { MemoryRouter } from "react-router";
-import { PageNotFound } from "./PageNotFound";
+import { ErrorPage } from "./ErrorPage";
 import { fireEvent, render, screen } from "@testing-library/react";
 
 const mockNavigate = vi.fn();
@@ -12,11 +12,11 @@ vi.mock("react-router", async () => {
   };
 });
 
-describe("PageNotFound", () => {
+describe("ErrorPage", () => {
   test("Page renders correclty", () => {
     render(
       <MemoryRouter>
-        <PageNotFound />
+        <ErrorPage />
       </MemoryRouter>,
     );
     expect(
@@ -28,7 +28,7 @@ describe("PageNotFound", () => {
   test("back button calls navigate with -1 when clicked", () => {
     render(
       <MemoryRouter>
-        <PageNotFound />
+        <ErrorPage />
       </MemoryRouter>,
     );
 

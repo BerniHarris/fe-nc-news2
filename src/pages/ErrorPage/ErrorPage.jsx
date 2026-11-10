@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router";
 import { IoMdArrowRoundBack } from "react-icons/io";
 
-import "./PageNotFound.css";
+import "./ErrorPage.css";
 
-export const PageNotFound = () => {
+export const ErrorPage = (errorCode, errorMessage) => {
   const navigate = useNavigate();
   return (
     <div data-testid="page-not-found" className="page-not-found-container">
