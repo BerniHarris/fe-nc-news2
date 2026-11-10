@@ -5,7 +5,7 @@ import { ArticleListPage } from "./pages/ArticleListPage/ArticleListPage";
 import { ArticlePage } from "./pages/ArticlePage/ArticlePage";
 import { HomePage } from "./pages/HomePage/HomePage";
 import { TopicListPage } from "./pages/TopicListPage/TopicListPage";
-import { PageNotFound } from "./pages/PageNotFound/PageNotFound";
+import { ErrorPage } from "./pages/ErrorPage/ErrorPage";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
 
 import { NavBar } from "./components/NavBar/NavBar";
@@ -33,7 +33,7 @@ function App() {
         <Route path="/articles" element={<ArticleListPage />} />
         <Route path="/articles/:article_id" element={<ArticlePage />} />
         <Route path="/topics/" element={<TopicListPage />} />
-        <Route path="*" element={<PageNotFound />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />
     </div>
