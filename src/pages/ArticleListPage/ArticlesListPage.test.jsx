@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, test, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter, useLocation } from "react-router";
 import { ArticleListPage } from "./ArticleListPage";
@@ -98,7 +98,7 @@ describe("ArticleListPage", () => {
     });
   });
 
-  it("renders the page with the Articles heading", () => {
+  test("renders the page with the Articles heading", () => {
     renderPage();
 
     expect(
@@ -122,7 +122,7 @@ describe("ArticleListPage", () => {
     expect(screen.queryByTestId("article-list-page")).not.toBeInTheDocument();
   });
 
-  it("renders an error message when the hook returns an Error", () => {
+  test("renders an error message when the hook returns an Error", () => {
     useArticleList.mockReturnValue({
       articles: [],
       loading: false,
@@ -131,24 +131,26 @@ describe("ArticleListPage", () => {
 
     renderPage();
 
-    expect(
-      screen.getByText("Error: Failed to fetch articles"),
-    ).toBeInTheDocument();
+    const headers = screen.getAllByRole("heading");
+    expect(headers[0]).toHaveTextContent(500);
+    expect(headers[1]).toHaveTextContent("Failed to fetch articles");
   });
 
-  it("renders an error message when the hook returns a string error", () => {
+  test("renders an error message when the hook returns an error object with status and message", () => {
     useArticleList.mockReturnValue({
       articles: [],
       loading: false,
-      error: "Something went wrong",
+      error: { status: 400, message: "Invalid request" },
     });
 
     renderPage();
 
-    expect(screen.getByText("Error: Something went wrong")).toBeInTheDocument();
+    const headers = screen.getAllByRole("heading");
+    expect(headers[0]).toHaveTextContent(400);
+    expect(headers[1]).toHaveTextContent("Invalid request");
   });
 
-  it("renders all article cards when articles are available", () => {
+  test("renders all article cards when articles are available", () => {
     renderPage();
 
     expect(screen.getAllByTestId("article-card")).toHaveLength(2);
@@ -160,7 +162,7 @@ describe("ArticleListPage", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders a message when there are no articles", () => {
+  test("renders a message when there are no articles", () => {
     useArticleList.mockReturnValue({
       articles: [],
       loading: false,
@@ -175,7 +177,7 @@ describe("ArticleListPage", () => {
     expect(screen.queryAllByTestId("article-card")).toHaveLength(0);
   });
 
-  it("renders a message when articles is undefined", () => {
+  test("renders a message when articles is undefined", () => {
     useArticleList.mockReturnValue({
       articles: undefined,
       loading: false,
@@ -187,7 +189,7 @@ describe("ArticleListPage", () => {
     expect(screen.getByTestId("no-articles")).toBeInTheDocument();
   });
 
-  it("uses the topic parameter to create the page heading", () => {
+  test("uses the topic parameter to create the page heading", () => {
     renderPage("/articles?topic=technology");
 
     expect(
@@ -198,19 +200,19 @@ describe("ArticleListPage", () => {
     ).toBeInTheDocument();
   });
 
-  it("passes the URL parameters to useArticleList", () => {
+  test("passes the URL parameters to useArticleList", () => {
     renderPage("/articles?topic=science&sort_by=title&order=desc");
 
     expect(useArticleList).toHaveBeenCalledWith("science", "title", "desc");
   });
 
-  it("uses default values when URL parameters are missing", () => {
+  test("uses default values when URL parameters are missing", () => {
     renderPage("/articles");
 
     expect(useArticleList).toHaveBeenCalledWith("", undefined, undefined);
   });
 
-  it("renders the dropdowns with values from the URL", () => {
+  test("renders the dropdowns with values from the URL", () => {
     renderPage("/articles?topic=science&sort_by=title&order=desc");
 
     expect(screen.getByTestId("topic-dropdown")).toHaveValue("science");
@@ -218,7 +220,7 @@ describe("ArticleListPage", () => {
     expect(screen.getByTestId("order-dropdown")).toHaveValue("desc");
   });
 
-  it("updates the topic search parameter when the topic changes", () => {
+  test("updates the topic search parameter when the topic changes", () => {
     renderPage("/articles");
 
     fireEvent.change(screen.getByTestId("topic-dropdown"), {
@@ -230,7 +232,7 @@ describe("ArticleListPage", () => {
     );
   });
 
-  it("updates the sort_by search parameter when sorting changes", () => {
+  test("updates the sort_by search parameter when sorting changes", () => {
     renderPage("/articles");
 
     fireEvent.change(screen.getByTestId("sort-dropdown"), {
@@ -242,7 +244,7 @@ describe("ArticleListPage", () => {
     );
   });
 
-  it("updates the order search parameter when the order changes", () => {
+  test("updates the order search parameter when the order changes", () => {
     renderPage("/articles");
 
     fireEvent.change(screen.getByTestId("order-dropdown"), {
@@ -254,7 +256,7 @@ describe("ArticleListPage", () => {
     );
   });
 
-  it("removes the topic parameter when the topic is cleared", () => {
+  test("removes the topic parameter when the topic is cleared", () => {
     renderPage("/articles?topic=science");
 
     fireEvent.change(screen.getByTestId("topic-dropdown"), {
@@ -264,7 +266,7 @@ describe("ArticleListPage", () => {
     expect(screen.getByTestId("current-search")).toHaveTextContent("");
   });
 
-  it("removes the sort_by parameter when sorting is cleared", () => {
+  test("removes the sort_by parameter when sorting is cleared", () => {
     renderPage("/articles?sort_by=title");
 
     fireEvent.change(screen.getByTestId("sort-dropdown"), {
@@ -274,7 +276,7 @@ describe("ArticleListPage", () => {
     expect(screen.getByTestId("current-search")).toHaveTextContent("");
   });
 
-  it("preserves other search parameters when one parameter changes", () => {
+  test("preserves other search parameters when one parameter changes", () => {
     renderPage("/articles?topic=science&sort_by=title&order=desc");
 
     fireEvent.change(screen.getByTestId("topic-dropdown"), {
@@ -290,7 +292,7 @@ describe("ArticleListPage", () => {
     expect(params.get("order")).toBe("desc");
   });
 
-  it("prevents the form from submitting and reloading the page", () => {
+  test("prevents the form from submitting and reloading the page", () => {
     renderPage();
 
     const form = document.querySelector(".organise-articles");

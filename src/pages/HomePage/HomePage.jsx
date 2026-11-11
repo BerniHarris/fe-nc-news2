@@ -1,28 +1,18 @@
 import { Link } from "react-router";
-import { useArticleList } from "../../hooks/useArticles/useArticles";
+import { useHomePageArticles } from "../../hooks/useArticles/useArticles";
 import { HomeHighlightCard } from "../../components/HomeHighlightCard/HomeHighlightCard";
 import "./HomePage.css";
 import { FeatureCard } from "../../components/FeatureCard/FeatureCard";
 import { IoMdArrowRoundForward } from "react-icons/io";
 import { Loading } from "../../components/Loading/Loading";
+import { ErrorPage } from "../ErrorPage/ErrorPage";
 
 export const HomePage = () => {
-  const { articles: topLiked, loading: topLikedLoading } = useArticleList(
-    undefined,
-    "votes",
-    "desc",
-  );
-  const { articles: topCommented, loading: topCommentedLoading } =
-    useArticleList(undefined, "comment_count", "desc");
-  const { articles: latestArticle, loading: latestArticleLoading } =
-    useArticleList(undefined, "created_at", "desc");
+  const { topFiveLiked, topFiveCommented, newestArticle, loading, error } =
+    useHomePageArticles();
 
-  const topFiveLiked = topLiked.slice(0, 5);
-  const topFiveCommented = topCommented.slice(0, 5);
-  const newestArticle = latestArticle[0];
-
-  if (latestArticleLoading || topLikedLoading || topCommentedLoading)
-    return <Loading />;
+  if (error) return <ErrorPage error={error} />;
+  if (loading) return <Loading />;
 
   return (
     <div className="home-page" data-testid="home-page">

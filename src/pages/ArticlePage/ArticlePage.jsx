@@ -14,7 +14,7 @@ import {
   useDeleteComment,
 } from "../../hooks/useComments/useComments.jsx";
 import { Loading } from "../../components/Loading/Loading.jsx";
-
+import { ErrorPage } from "../ErrorPage/ErrorPage.jsx";
 export const ArticlePage = () => {
   const { article_id: articleId } = useParams();
   const {
@@ -38,13 +38,9 @@ export const ArticlePage = () => {
 
   if (articleLoading || commentsLoading || commentLoading) return <Loading />;
 
-  if (articleErrors)
-    return <p>Error: {articleErrors.message || articleErrors}</p>;
-
-  if (commentsErrors)
-    return <p>Error: {commentsErrors.message || commentsErrors}</p>;
-
-  if (commentError) return <p>Error: {commentError.message || commentError}</p>;
+  if (articleErrors) return <ErrorPage error={articleErrors} />;
+  if (commentError) return <ErrorPage error={commentError} />;
+  if (commentsErrors) return <ErrorPage error={commentsErrors} />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -128,6 +124,7 @@ export const ArticlePage = () => {
             Submit Comment
           </button>
         </form>
+
         <section className="comment-list">
           <h3 className="comments-header">Comments:</h3>
           {comments && comments.length > 0 ? (

@@ -3,10 +3,10 @@ import { describe, test, expect, vi, beforeEach } from "vitest";
 import { MemoryRouter } from "react-router";
 
 import { HomePage } from "./HomePage";
-import { useArticleList } from "../../hooks/useArticles/useArticles";
+import { useHomePageArticles } from "../../hooks/useArticles/useArticles";
 
 vi.mock("../../hooks/useArticles/useArticles", () => ({
-  useArticleList: vi.fn(),
+  useHomePageArticles: vi.fn(),
 }));
 
 const mockArticle = {
@@ -28,26 +28,20 @@ const mockArticles = [
   { ...mockArticle, article_id: 5 },
   { ...mockArticle, article_id: 6 },
 ];
+
 describe("HomePage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
   const setupLoadedPage = () => {
-    useArticleList
-      .mockReturnValueOnce({
-        articles: mockArticles,
-        loading: false,
-      })
-      .mockReturnValueOnce({
-        articles: mockArticles,
-        loading: false,
-      })
-      .mockReturnValueOnce({
-        articles: [mockArticle],
-        loading: false,
-      });
-
+    useHomePageArticles.mockReturnValue({
+      topFiveLiked: mockArticles.slice(0, 5),
+      topFiveCommented: mockArticles.slice(0, 5),
+      newestArticle: mockArticle,
+      loading: false,
+      error: null,
+    });
     render(
       <MemoryRouter>
         <HomePage />
@@ -62,45 +56,14 @@ describe("HomePage", () => {
     expect(screen.getByRole("heading", { name: "Home" })).toBeInTheDocument();
   });
 
-  test("calls useArticleList with correct arguments", () => {
-    setupLoadedPage();
-
-    expect(useArticleList).toHaveBeenNthCalledWith(
-      1,
-      undefined,
-      "votes",
-      "desc",
-    );
-
-    expect(useArticleList).toHaveBeenNthCalledWith(
-      2,
-      undefined,
-      "comment_count",
-      "desc",
-    );
-
-    expect(useArticleList).toHaveBeenNthCalledWith(
-      3,
-      undefined,
-      "created_at",
-      "desc",
-    );
-  });
-
   test("renders loading component while loading", () => {
-    useArticleList
-      .mockReturnValueOnce({
-        articles: [],
-        loading: true,
-      })
-      .mockReturnValueOnce({
-        articles: [],
-        loading: false,
-      })
-      .mockReturnValueOnce({
-        articles: [],
-        loading: false,
-      });
+    useHomePageArticles.mockReturnValue({
+      topFiveLiked: [],
+      topFiveCommented: [],
+      newestArticle: undefined,
+      loading: true,
+      error: null,
+    });
 
     render(
       <MemoryRouter>
@@ -129,9 +92,7 @@ describe("HomePage", () => {
     setupLoadedPage();
 
     expect(
-      screen.getByRole("heading", {
-        name: /most liked/i,
-      }),
+      screen.getByRole("heading", { name: /most liked/i }),
     ).toBeInTheDocument();
 
     expect(screen.getByText("#1 Most Liked")).toBeInTheDocument();
@@ -141,9 +102,7 @@ describe("HomePage", () => {
     setupLoadedPage();
 
     expect(
-      screen.getByRole("heading", {
-        name: /most comments/i,
-      }),
+      screen.getByRole("heading", { name: /most comments/i }),
     ).toBeInTheDocument();
 
     expect(screen.getByText("#1 Most Comments")).toBeInTheDocument();
@@ -159,19 +118,13 @@ describe("HomePage", () => {
   });
 
   test("does not render most liked cards when fewer than five articles are returned", () => {
-    useArticleList
-      .mockReturnValueOnce({
-        articles: [mockArticles[0], mockArticles[1]],
-        loading: false,
-      })
-      .mockReturnValueOnce({
-        articles: [mockArticles],
-        loading: false,
-      })
-      .mockReturnValueOnce({
-        articles: [mockArticle],
-        loading: false,
-      });
+    useHomePageArticles.mockReturnValue({
+      topFiveLiked: mockArticles.slice(0, 2),
+      topFiveCommented: mockArticles.slice(0, 5),
+      newestArticle: mockArticle,
+      loading: false,
+      error: null,
+    });
 
     render(
       <MemoryRouter>
@@ -183,19 +136,13 @@ describe("HomePage", () => {
   });
 
   test("does not render most commented cards when fewer than five articles are returned", () => {
-    useArticleList
-      .mockReturnValueOnce({
-        articles: [mockArticles],
-        loading: false,
-      })
-      .mockReturnValueOnce({
-        articles: [mockArticles[3], mockArticles[5]],
-        loading: false,
-      })
-      .mockReturnValueOnce({
-        articles: [mockArticle],
-        loading: false,
-      });
+    useHomePageArticles.mockReturnValue({
+      topFiveLiked: mockArticles.slice(0, 5),
+      topFiveCommented: mockArticles.slice(0, 2),
+      newestArticle: mockArticle,
+      loading: false,
+      error: null,
+    });
 
     render(
       <MemoryRouter>
@@ -204,5 +151,23 @@ describe("HomePage", () => {
     );
 
     expect(screen.queryByText("#1 Most Comments")).not.toBeInTheDocument();
+  });
+
+  test("correctly renders error UI when the network request fails", () => {
+    useHomePageArticles.mockReturnValue({
+      topFiveLiked: [],
+      topFiveCommented: [],
+      newestArticle: undefined,
+      loading: false,
+      error: "Network Error",
+    });
+
+    render(
+      <MemoryRouter>
+        <HomePage />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByText(/Network Error/i)).toBeInTheDocument();
   });
 });

@@ -56,7 +56,7 @@ describe("App", () => {
     ).toBeInTheDocument();
   });
 
-  test("renders PageNotFound at invlaid routes", async () => {
+  test("renders ErrorPage at invlaid routes", async () => {
     setup("/jibberish");
 
     expect(

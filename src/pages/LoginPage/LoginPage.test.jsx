@@ -3,6 +3,7 @@ import { LoginPage } from "./LoginPage";
 import { useAuth } from "../../Context/AuthContext/AuthContext";
 import { useUsers } from "../../hooks/useUsers/useUsers";
 import { vi } from "vitest";
+import { MemoryRouter } from "react-router";
 
 vi.mock("../../Context/AuthContext/AuthContext", () => ({
   useAuth: vi.fn(),
@@ -158,8 +159,12 @@ describe("LoginPage", () => {
       error: "Something went wrong",
     });
 
-    render(<LoginPage />);
+    render(
+      <MemoryRouter>
+        <LoginPage />
+      </MemoryRouter>,
+    );
 
-    expect(screen.getByText(/error/i)).toBeInTheDocument();
+    expect(screen.getByText(/Something went wrong/i)).toBeInTheDocument();
   });
 });

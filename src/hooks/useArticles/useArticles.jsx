@@ -90,3 +90,17 @@ export const useUpdateArticle = () => {
     error,
   };
 };
+
+export const useHomePageArticles = () => {
+  const topLiked = useArticleList(undefined, "votes", "desc");
+  const topCommented = useArticleList(undefined, "comment_count", "desc");
+  const latest = useArticleList(undefined, "created_at", "desc");
+
+  return {
+    topFiveLiked: topLiked.articles.slice(0, 5),
+    topFiveCommented: topCommented.articles.slice(0, 5),
+    newestArticle: latest.articles[0],
+    loading: latest.loading || topLiked.loading || topCommented.loading,
+    error: latest.error || topLiked.error || topCommented.error,
+  };
+};

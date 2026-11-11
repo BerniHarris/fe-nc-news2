@@ -28,12 +28,17 @@ function App() {
       <ScrollToTop />
       <NavBar />
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/articles" element={<ArticleListPage />} />
         <Route path="/articles/:article_id" element={<ArticlePage />} />
         <Route path="/topics/" element={<TopicListPage />} />
-        <Route path="*" element={<ErrorPage />} />
+        <Route
+          path="*"
+          element={
+            <ErrorPage error={{ message: "Page Not Found", status: 404 }} />
+          }
+        />
       </Routes>
       <Footer />
     </div>

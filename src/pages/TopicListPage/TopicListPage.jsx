@@ -2,12 +2,13 @@ import { TopicCard } from "../../components/TopicCard/TopicCard";
 import { useTopics } from "../../hooks/topicHooks/topicHooks.jsx";
 import "./TopicListPage.css";
 import { Loading } from "../../components/Loading/Loading.jsx";
+import { ErrorPage } from "../ErrorPage/ErrorPage.jsx";
 
 export const TopicListPage = () => {
   const { topics, loading, error } = useTopics();
 
   if (loading) return <Loading />;
-  if (error) return <p>Error: {error.message || error}</p>;
+  if (error) return <ErrorPage error={error} />;
 
   const pageHeader = "Topics";
 

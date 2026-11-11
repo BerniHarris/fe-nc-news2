@@ -84,7 +84,7 @@ describe("TopicListPage", () => {
       );
 
       await waitFor(() => {
-        expect(screen.getByText(/Error: Network Error/i)).toBeInTheDocument();
+        expect(screen.getByText(/Network Error/i)).toBeInTheDocument();
       });
     });
     test("correctly renders loading message", async () => {

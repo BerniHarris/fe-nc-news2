@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../../Context/AuthContext/AuthContext";
 import { useUsers } from "../../hooks/useUsers/useUsers";
 import "./LoginPage.css";
+import { ErrorPage } from "../ErrorPage/ErrorPage";
 
 export const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -31,7 +32,7 @@ export const LoginPage = () => {
   };
 
   if (error) {
-    return <p>error</p>;
+    return <ErrorPage error={error} />;
   }
 
   const showError = errors.username;

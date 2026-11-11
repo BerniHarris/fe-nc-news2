@@ -1,18 +1,21 @@
 import { useArticleList } from "../../hooks/useArticles/useArticles";
 import { ArticleSummaryCard } from "../../components/ArticleSummaryCard/ArticleSummaryCard";
-import "./ArticleListPage.css";
 import { useSearchParams } from "react-router";
 import { toTitleCase } from "../../utils/utils";
 import { OrderDropdown } from "../../components/filtering/OrderDropdown/OrderDopdown";
 import { TopicDropdown } from "../../components/filtering/TopicDropdown/TopicDropdown";
 import { SortDropdown } from "../../components/filtering/SortDropdown/SortDropdown";
 import { Loading } from "../../components/Loading/Loading";
+import { ErrorPage } from "../ErrorPage/ErrorPage";
+import "./ArticleListPage.css";
 
 export const ArticleListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const topic = searchParams.get("topic") || "";
-  const sortBy = searchParams.get("sort_by") || undefined;
-  const order = searchParams.get("order") || undefined;
+  const {
+    topic = "",
+    sort_by: sortBy,
+    order,
+  } = Object.fromEntries(searchParams);
   const { articles, loading, error } = useArticleList(topic, sortBy, order);
 
   const handleParamChange = (key, event) => {
@@ -28,9 +31,8 @@ export const ArticleListPage = () => {
     setSearchParams(newParams);
   };
 
+  if (error) return <ErrorPage error={error} />;
   if (loading) return <Loading />;
-
-  if (error) return <p>Error: {error.message || error}</p>;
 
   const pageHeader = topic ? `${toTitleCase(topic)} Articles` : "Articles";
 
@@ -56,7 +58,7 @@ export const ArticleListPage = () => {
       </form>
 
       <section className="article-list">
-        {articles && articles.length > 0 ? (
+        {articles?.length > 0 ? (
           articles.map((article) => (
             <ArticleSummaryCard key={article.article_id} article={article} />
           ))
