@@ -48,7 +48,7 @@ export const ArticleCard = ({
       <img
         src={article_img_url}
         alt={`Cover for ${title}`}
-        className="article-image"
+        className="article-card-image"
       />
 
       <div className="article-body-wrapper">
