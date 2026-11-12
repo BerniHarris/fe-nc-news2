@@ -7,6 +7,7 @@ import { HomePage } from "./pages/HomePage/HomePage";
 import { TopicListPage } from "./pages/TopicListPage/TopicListPage";
 import { ErrorPage } from "./pages/ErrorPage/ErrorPage";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
+import { AboutPage } from "./pages/AboutPage/AboutPage";
 
 import { NavBar } from "./components/NavBar/NavBar";
 import { Footer } from "./components/Footer/Footer";
@@ -32,7 +33,9 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/articles" element={<ArticleListPage />} />
         <Route path="/articles/:article_id" element={<ArticlePage />} />
-        <Route path="/topics/" element={<TopicListPage />} />
+        <Route path="/topics" element={<TopicListPage />} />
+        <Route path="/about" element={<AboutPage />} />
+
         <Route
           path="*"
           element={

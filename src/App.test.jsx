@@ -3,6 +3,8 @@ import { AuthProvider } from "./Context/AuthContext/AuthContext";
 import { MemoryRouter } from "react-router";
 import App from "./App";
 
+window.scrollTo = vi.fn();
+
 describe("App", () => {
   const setup = (initialEntries) => {
     render(
