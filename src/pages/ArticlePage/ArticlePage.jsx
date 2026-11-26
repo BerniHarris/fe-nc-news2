@@ -77,14 +77,9 @@ export const ArticlePage = () => {
 
   const authorAvatar = () => {
     const authorInfo = users?.find(
-      (existingUser) => existingUser.username === article.author,
+      (existingUser) => existingUser.username === article?.author,
     );
-
-    if (!authorInfo.avatar_url) {
-      return undefined;
-    } else {
-      return authorInfo.avatar_url;
-    }
+    return authorInfo?.avatar_url;
   };
 
   return (
