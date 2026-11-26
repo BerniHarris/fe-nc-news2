@@ -10,25 +10,34 @@ export const LoginPage = () => {
   const { user, login, logout } = useAuth();
   const { users, error } = useUsers();
 
-  const isValidUsername =
-    users.filter((existingUser) => existingUser.username === username)
-      .length === 1;
+  const demoUsers = [
+    "tickle122",
+    "grumpy19",
+    "happyamy2016",
+    "cooljmessy",
+    "weegembump",
+    "jessjelly",
+    "guestUser1",
+  ];
+
+  const matchedUser = users?.find(
+    (existingUser) => existingUser.username === username,
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!isValidUsername) {
+    if (!matchedUser) {
       setErrors({ username: "Invalid username." });
       return;
     }
-    await login(users.find((user) => user.username === username));
+    await login(matchedUser);
   };
 
   const handleLogout = async () => {
     setUsername("");
     setErrors({});
     await logout();
-    return;
   };
 
   if (error) {
@@ -51,12 +60,35 @@ export const LoginPage = () => {
               type="text"
               value={username}
               onChange={(e) => {
-                (setUsername(e.target.value), setErrors({}));
+                setUsername(e.target.value);
+                setErrors({});
               }}
               placeholder="Enter username"
               className={`username-input ${showError ? "has-error" : ""}`}
               required
             />
+            {!demoUsers.includes(username) && (
+              <div
+                className="demo-usernames"
+                data-testid="demo-username-container"
+              >
+                <span>Valid demo users: </span>
+                {demoUsers.map((demo) => (
+                  <button
+                    className="username-button"
+                    key={demo}
+                    type="button"
+                    onClick={() => {
+                      setUsername(demo);
+                      setErrors({});
+                    }}
+                  >
+                    {demo}
+                  </button>
+                ))}
+              </div>
+            )}
+
             {showError && <p className="username-error">{errors.username}</p>}
 
             <button type="submit" className="login-button">
@@ -67,7 +99,11 @@ export const LoginPage = () => {
       )}
       {user && (
         <div className="login-page-body">
-          <img src={user.avatar_url} className="user-avatar" />
+          <img
+            src={user.avatar_url}
+            alt={`${user.username}'s avatar`}
+            className="user-avatar"
+          />
           <button className="logout-button" onClick={handleLogout}>
             Log Out
           </button>

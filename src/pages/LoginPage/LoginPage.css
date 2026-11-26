@@ -45,16 +45,6 @@ button.logout-button {
   border: none;
 }
 
-button.guest-login {
-  border: none;
-  background-color: transparent;
-  font-size: medium;
-  font-weight: bold;
-  transition:
-    transform 0.3s ease,
-    -webkit-transform 0.3s ease;
-}
-
 .login-button:hover,
 .logout-button:hover,
 .guest-login:hover {
@@ -80,4 +70,24 @@ input.username-input.has-error {
 
 .user-avatar {
   max-width: 80%;
+  max-height: 50%;
+}
+
+.username-button {
+  color: #301934;
+  font-size: smaller;
+  font-weight: bold;
+  padding: 0.3rem 1rem;
+  width: fit-content;
+  border-radius: 12px;
+  cursor: pointer;
+  border: none;
+}
+
+.demo-usernames {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 1rem 0rem;
 }
