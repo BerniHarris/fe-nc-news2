@@ -1,4 +1,5 @@
 import Select from "react-select";
+import "./CustomDropdown.css";
 
 export const CustomDropdown = ({
   id,
@@ -6,10 +7,18 @@ export const CustomDropdown = ({
   options,
   placeholder,
   onChange,
+  hide = false,
 }) => {
   return (
     <section className={`${id}-dropdown-container`}>
-      <label htmlFor={id}>{label}</label>
+      <label
+        htmlFor={id}
+        className={
+          hide === true ? "hide-dropdown-label" : "show-dropdown-label"
+        }
+      >
+        {label}
+      </label>
       <Select
         inputId={id}
         options={options}

@@ -52,3 +52,12 @@ form.organise-articles {
 .loading-container {
   display: flex;
 }
+
+.toggle-order-button {
+  display: flex;
+  height: stretch;
+  align-items: center;
+  border: none;
+  padding: 0rem 1rem;
+  cursor: pointer;
+}

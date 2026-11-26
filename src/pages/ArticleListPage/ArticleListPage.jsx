@@ -7,14 +7,16 @@ import { TopicDropdown } from "../../components/filtering/TopicDropdown/TopicDro
 import { SortDropdown } from "../../components/filtering/SortDropdown/SortDropdown";
 import { Loading } from "../../components/Loading/Loading";
 import { ErrorPage } from "../ErrorPage/ErrorPage";
+import { FaSortAmountDown, FaSortAmountUp } from "react-icons/fa";
+
 import "./ArticleListPage.css";
 
 export const ArticleListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const {
     topic = "",
-    sort_by: sortBy,
-    order,
+    sort_by: sortBy = "created_at",
+    order = "desc",
   } = Object.fromEntries(searchParams);
   const { articles, loading, error } = useArticleList(topic, sortBy, order);
 
@@ -36,6 +38,24 @@ export const ArticleListPage = () => {
 
   const pageHeader = topic ? `${toTitleCase(topic)} Articles` : "Articles";
 
+  const toggleOrder = () => {
+    const nextOrder = order === "desc" ? "asc" : "desc";
+    setSearchParams((prev) => {
+      prev.set("order", nextOrder);
+      return prev;
+    });
+  };
+
+  const getOrderLabel = () => {
+    if (sortBy === "title") {
+      return order === "asc" ? "A-Z" : "Z-A";
+    }
+    if (sortBy === "created_at") {
+      return order === "desc" ? "Newest" : "Oldest";
+    }
+    return order === "desc" ? "Highest" : "Lowest";
+  };
+
   return (
     <div className="article-list-page" data-testid="article-list-page">
       <h1>{pageHeader}</h1>
@@ -50,11 +70,18 @@ export const ArticleListPage = () => {
           label="Sort"
           onChange={(e) => handleParamChange("sort_by", e)}
         />
-        <OrderDropdown
-          valu={order}
-          label="order"
-          onChange={(e) => handleParamChange("order", e)}
-        />
+        <button
+          className="toggle-order-button"
+          onClick={toggleOrder}
+          aria-label={`Current order: ${order === undefined ? "Newest" : getOrderLabel()}. Click to reverse order.`}
+          data-testid="toggle-order-button"
+        >
+          {order === "desc" ? (
+            <FaSortAmountDown size={"1rem"} />
+          ) : (
+            <FaSortAmountUp size={"1rem"} />
+          )}
+        </button>
       </form>
 
       <section className="article-list">

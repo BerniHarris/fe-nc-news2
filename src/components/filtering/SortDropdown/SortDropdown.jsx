@@ -1,14 +1,10 @@
 import { CustomDropdown } from "../CustomDropdown/CustomDropdown";
 
 const sortOptions = [
-  { value: "author", label: "Author" },
-  { value: "article_id", label: "Article ID" },
-  { value: "comment_count", label: "Comments" },
   { value: "created_at", label: "Date Created" },
-  { value: "article_img_url", label: "Image" },
-  { value: "title", label: "Title" },
-  { value: "topic", label: "Topic" },
+  { value: "comment_count", label: "Comments" },
   { value: "votes", label: "Votes" },
+  { value: "title", label: "Title" },
 ];
 
 export const SortDropdown = ({ onChange }) => {
@@ -19,6 +15,7 @@ export const SortDropdown = ({ onChange }) => {
       placeholder={"Choose How To Sort"}
       options={sortOptions}
       onChange={onChange}
+      hide={true}
     />
   );
 };

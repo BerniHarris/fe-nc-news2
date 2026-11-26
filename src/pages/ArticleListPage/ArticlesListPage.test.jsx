@@ -109,7 +109,7 @@ describe("ArticleListPage", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders the loading message while articles are loading", () => {
+  test("renders the loading message while articles are loading", () => {
     useArticleList.mockReturnValue({
       articles: [],
       loading: true,
@@ -160,6 +160,11 @@ describe("ArticleListPage", () => {
     expect(
       screen.getByRole("heading", { name: "Second Article" }),
     ).toBeInTheDocument();
+
+    expect(screen.getByTestId("toggle-order-button")).toHaveAttribute(
+      "aria-label",
+      "Current order: Newest. Click to reverse order.",
+    );
   });
 
   test("renders a message when there are no articles", () => {
@@ -209,15 +214,18 @@ describe("ArticleListPage", () => {
   test("uses default values when URL parameters are missing", () => {
     renderPage("/articles");
 
-    expect(useArticleList).toHaveBeenCalledWith("", undefined, undefined);
+    expect(useArticleList).toHaveBeenCalledWith("", "created_at", "desc");
   });
 
-  test("renders the dropdowns with values from the URL", () => {
+  test("renders the dropdowns with and order button values from the URL", () => {
     renderPage("/articles?topic=science&sort_by=title&order=desc");
 
     expect(screen.getByTestId("topic-dropdown")).toHaveValue("science");
     expect(screen.getByTestId("sort-dropdown")).toHaveValue("title");
-    expect(screen.getByTestId("order-dropdown")).toHaveValue("desc");
+    expect(screen.getByTestId("toggle-order-button")).toHaveAttribute(
+      "aria-label",
+      "Current order: Z-A. Click to reverse order.",
+    );
   });
 
   test("updates the topic search parameter when the topic changes", () => {
@@ -244,16 +252,29 @@ describe("ArticleListPage", () => {
     );
   });
 
-  test("updates the order search parameter when the order changes", () => {
+  test("updates the order search parameter when the order changes", async () => {
     renderPage("/articles");
 
-    fireEvent.change(screen.getByTestId("order-dropdown"), {
-      target: { value: "desc" },
+    expect(screen.getByTestId("toggle-order-button")).toHaveAttribute(
+      "aria-label",
+      "Current order: Newest. Click to reverse order.",
+    );
+
+    fireEvent.click(screen.getByRole("button"), {
+      data_testid: "toggle-order-button",
     });
 
-    expect(screen.getByTestId("current-search")).toHaveTextContent(
-      "order=desc",
+    expect(screen.getByTestId("toggle-order-button")).toHaveAttribute(
+      "aria-label",
+      "Current order: Oldest. Click to reverse order.",
     );
+
+    expect(screen.getByTestId("toggle-order-button")).not.toHaveAttribute(
+      "aria-label",
+      "Current order: Newest. Click to reverse order.",
+    );
+
+    expect(screen.getByTestId("current-search")).toHaveTextContent("order=asc");
   });
 
   test("removes the topic parameter when the topic is cleared", () => {

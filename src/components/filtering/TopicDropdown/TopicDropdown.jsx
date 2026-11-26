@@ -14,6 +14,7 @@ export const TopicDropdown = ({ onChange }) => {
       placeholder={"Choose a topic"}
       options={topicOptions}
       onChange={onChange}
+      hide={true}
     />
   );
 };

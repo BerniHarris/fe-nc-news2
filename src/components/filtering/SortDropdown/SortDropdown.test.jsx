@@ -19,14 +19,10 @@ describe("SortDropdown", () => {
     selectEvent.openMenu(dropdownLabel);
 
     const options = await screen.findAllByRole("option");
-    expect(options).toHaveLength(8);
-    expect(options[0]).toHaveTextContent("Author");
-    expect(options[1]).toHaveTextContent("Article ID");
-    expect(options[2]).toHaveTextContent("Comments");
-    expect(options[3]).toHaveTextContent("Date Created");
-    expect(options[4]).toHaveTextContent("Image");
-    expect(options[5]).toHaveTextContent("Title");
-    expect(options[6]).toHaveTextContent("Topic");
-    expect(options[7]).toHaveTextContent("Votes");
+    expect(options).toHaveLength(4);
+    expect(options[0]).toHaveTextContent("Date Created");
+    expect(options[1]).toHaveTextContent("Comments");
+    expect(options[2]).toHaveTextContent("Votes");
+    expect(options[3]).toHaveTextContent("Title");
   });
 });
