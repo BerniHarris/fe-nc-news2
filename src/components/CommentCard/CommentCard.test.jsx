@@ -23,11 +23,17 @@ describe("CommentCard", () => {
       comment_id: 2,
     };
 
+    const userAvatar = "www.image.com";
+
     const mockHandleDelete = vi.fn();
     const setup = () => {
       render(
         <MemoryRouter initialEntries={["/articles/1/comments"]}>
-          <CommentCard comment={comment} handleDelete={mockHandleDelete} />
+          <CommentCard
+            comment={comment}
+            handleDelete={mockHandleDelete}
+            userAvatar={userAvatar}
+          />
         </MemoryRouter>,
       );
     };

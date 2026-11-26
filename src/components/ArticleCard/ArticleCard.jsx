@@ -57,11 +57,13 @@ export const ArticleCard = ({
       <div className="article-body-wrapper">
         <div className="whoandwhen">
           <div className="who">
-            <img
-              src={userAvatar}
-              alt={`${author} avatar`}
-              className="author-avatar"
-            />
+            {userAvatar && (
+              <img
+                src={userAvatar}
+                alt={`${author} avatar`}
+                className="author-avatar"
+              />
+            )}
             <address className="author" data-testid="author">
               By {author}
             </address>

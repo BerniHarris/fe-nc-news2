@@ -17,10 +17,16 @@ describe("ArticleCard", () => {
       created_at: "2009-06-15T13:45:30.0000000Z",
     };
 
+    const userAvatar = "www.image.com";
+
     const setup = () => {
       render(
         <MemoryRouter initialEntries={["/articles/199"]}>
-          <ArticleCard article={article} commentNumber={2} />
+          <ArticleCard
+            article={article}
+            commentNumber={2}
+            userAvatar={userAvatar}
+          />
         </MemoryRouter>,
       );
     };

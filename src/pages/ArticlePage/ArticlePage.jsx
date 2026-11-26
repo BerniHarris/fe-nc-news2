@@ -75,9 +75,9 @@ export const ArticlePage = () => {
     updateArticle(articleId, -1);
   };
 
-  const authorAvatar = () => {
+  const authorAvatar = (author) => {
     const authorInfo = users?.find(
-      (existingUser) => existingUser.username === article?.author,
+      (existingUser) => existingUser.username === author,
     );
     return authorInfo?.avatar_url;
   };
@@ -90,7 +90,7 @@ export const ArticlePage = () => {
         votes={article.votes}
         handleUpvote={(e) => handleUpvote(e, articleId)}
         handleDownvote={(e) => handleDownvote(e, articleId)}
-        userAvatar={authorAvatar()}
+        userAvatar={authorAvatar(article.author)}
       />
       <div>
         <form
@@ -145,6 +145,7 @@ export const ArticlePage = () => {
                 key={comment.comment_id}
                 comment={comment}
                 handleDelete={(e) => handleDelete(e, comment)}
+                userAvatar={authorAvatar(comment.author)}
               />
             ))
           ) : (

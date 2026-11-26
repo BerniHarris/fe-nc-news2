@@ -110,3 +110,17 @@
 .comment-body-wrapper {
   width: fit-content;
 }
+
+.who {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+.author-avatar {
+  height: 2.5rem;
+  display: flex;
+  margin: 0px;
+  padding: 0px;
+  border-radius: 999px;
+}

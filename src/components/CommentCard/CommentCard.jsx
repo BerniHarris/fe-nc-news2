@@ -4,7 +4,7 @@ import { Votes } from "../Votes/Votes";
 import { DeleteComment } from "../DeleteComment/DeleteComment";
 import { FEATURE_FLAGS } from "../../config/featureFlags";
 
-export const CommentCard = ({ comment, handleDelete }) => {
+export const CommentCard = ({ comment, handleDelete, userAvatar }) => {
   if (!comment) {
     return null;
   }
@@ -18,9 +18,18 @@ export const CommentCard = ({ comment, handleDelete }) => {
         data-testid="comment-body-wrapper"
       >
         <div className="whoandwhenComment">
-          <address className="author" data-testid="author">
-            By {author}
-          </address>
+          <div className="who">
+            {userAvatar && (
+              <img
+                src={userAvatar}
+                alt={`${author} avatar`}
+                className="author-avatar"
+              />
+            )}
+            <address className="author" data-testid="author">
+              By {author}
+            </address>
+          </div>
           <time className="date">{formattedDate(created_at)}</time>
         </div>
         <p>{body}</p>
