@@ -2,6 +2,7 @@ import { formattedDate } from "../../utils/utils";
 import "./CommentCard.css";
 import { Votes } from "../Votes/Votes";
 import { DeleteComment } from "../DeleteComment/DeleteComment";
+import { FEATURE_FLAGS } from "../../config/featureFlags";
 
 export const CommentCard = ({ comment, handleDelete }) => {
   if (!comment) {
@@ -25,7 +26,7 @@ export const CommentCard = ({ comment, handleDelete }) => {
         <p>{body}</p>
       </header>
       <footer className="comment-card-footer">
-        <Votes votes={votes} />
+        {FEATURE_FLAGS.ENABLE_COMMENT_VOTES && <Votes votes={votes} />}
         <DeleteComment commentId={commentId} handleDelete={handleDelete} />
       </footer>
     </section>
