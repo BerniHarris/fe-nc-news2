@@ -79,7 +79,12 @@ export const ArticlePage = () => {
     const authorInfo = users?.find(
       (existingUser) => existingUser.username === article.author,
     );
-    return authorInfo.avatar_url;
+
+    if (!authorInfo.avatar_url) {
+      return undefined;
+    } else {
+      return authorInfo.avatar_url;
+    }
   };
 
   return (
