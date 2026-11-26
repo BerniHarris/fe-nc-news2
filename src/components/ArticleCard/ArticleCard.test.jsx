@@ -33,7 +33,7 @@ describe("ArticleCard", () => {
       setup();
       const topic = screen.getByText("CODING");
       const title = screen.getByRole("heading", { name: "TITLE" });
-      const image = screen.getByRole("img", { alt: /cover for title/i });
+      const image = screen.getAllByRole("img");
       const author = screen.getByText(/by berni/i);
       const date = screen.getByRole("time");
       const article = screen.getByText(/very interesting/i);
@@ -46,7 +46,9 @@ describe("ArticleCard", () => {
 
       expect(topic).toBeInTheDocument();
       expect(title).toBeInTheDocument();
-      expect(image).toBeInTheDocument();
+      expect(image[0]).toHaveAttribute("alt", "Cover for title");
+      expect(image[1]).toHaveAttribute("alt", "berni avatar");
+
       expect(author).toBeInTheDocument();
       expect(date).toHaveTextContent("Monday, 15 June 2009");
       expect(article).toBeInTheDocument();

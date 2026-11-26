@@ -116,3 +116,16 @@
   outline: 2px solid #3e91c1;
   outline-offset: 2px;
 }
+
+.who {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.author-avatar {
+  height: 2.5rem;
+  display: flex;
+  margin: 0px;
+  padding: 0px;
+  border-radius: 999px;
+}

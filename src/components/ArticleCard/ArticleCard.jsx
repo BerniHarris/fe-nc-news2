@@ -4,6 +4,7 @@ import { Comments } from "../Comments/Comments";
 
 export const ArticleCard = ({
   article,
+  userAvatar,
   commentNumber,
   handleUpvote,
   handleDownvote,
@@ -45,17 +46,26 @@ export const ArticleCard = ({
         </div>
         <h2 className="title">{title.toUpperCase()}</h2>
       </header>
-      <img
-        src={article_img_url}
-        alt={`Cover for ${title}`}
-        className="article-card-image"
-      />
+      {article_img_url && (
+        <img
+          src={article_img_url}
+          alt={`Cover for ${title}`}
+          className="article-card-image"
+        />
+      )}
 
       <div className="article-body-wrapper">
         <div className="whoandwhen">
-          <address className="author" data-testid="author">
-            By {author}
-          </address>
+          <div className="who">
+            <img
+              src={userAvatar}
+              alt={`${author} avatar`}
+              className="author-avatar"
+            />
+            <address className="author" data-testid="author">
+              By {author}
+            </address>
+          </div>
           <time className="date">{formattedDate}</time>
         </div>
         <p>{body}</p>

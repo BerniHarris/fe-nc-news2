@@ -78,12 +78,28 @@ describe("ArticlePage", () => {
         comment_id: 4,
       };
 
+      const mockUsers = [
+        {
+          avatar_url: "https://imgberni.com",
+          name: "berni harris",
+          username: "berni",
+        },
+        {
+          avatar_url: "https://imgotis.com",
+          name: "otis harris",
+          username: "otis",
+        },
+      ];
+
       get.mockImplementation((url) => {
         if (url.includes("/comments")) {
           return Promise.resolve({ comments: mockComments });
         }
         if (url.includes("/articles/")) {
           return Promise.resolve({ article: mockArticle });
+        }
+        if (url.includes("/users")) {
+          return Promise.resolve({ users: mockUsers });
         }
         return Promise.reject(new Error(`Unhandled URL request: ${url}`));
       });

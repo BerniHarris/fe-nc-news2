@@ -15,6 +15,8 @@ import {
 } from "../../hooks/useComments/useComments.jsx";
 import { Loading } from "../../components/Loading/Loading.jsx";
 import { ErrorPage } from "../ErrorPage/ErrorPage.jsx";
+import { useUsers } from "../../hooks/useUsers/useUsers";
+
 export const ArticlePage = () => {
   const { article_id: articleId } = useParams();
   const {
@@ -34,6 +36,8 @@ export const ArticlePage = () => {
     useCreateComment(articleId);
   const { removeComment } = useDeleteComment();
   const { updateArticle } = useUpdateArticle();
+  const { users, error } = useUsers();
+
   const [formData, setFormData] = useState({ username: "", body: "" });
 
   if (articleLoading || commentsLoading || commentLoading) return <Loading />;
@@ -71,6 +75,13 @@ export const ArticlePage = () => {
     updateArticle(articleId, -1);
   };
 
+  const authorAvatar = () => {
+    const authorInfo = users?.find(
+      (existingUser) => existingUser.username === article.author,
+    );
+    return authorInfo.avatar_url;
+  };
+
   return (
     <div className="article-page" data-testid="article-page">
       <ArticleCard
@@ -79,6 +90,7 @@ export const ArticlePage = () => {
         votes={article.votes}
         handleUpvote={(e) => handleUpvote(e, articleId)}
         handleDownvote={(e) => handleDownvote(e, articleId)}
+        userAvatar={authorAvatar()}
       />
       <div>
         <form
