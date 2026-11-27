@@ -7,3 +7,11 @@ export const formattedDate = (date) => {
     dateStyle: "full",
   });
 };
+
+export const isoStringToDDMMYYYY = (date) => {
+  const isoDate = new Date(date);
+
+  return new Intl.DateTimeFormat("en-GB", {
+    timeZone: "UTC",
+  }).format(isoDate);
+};

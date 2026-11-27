@@ -36,6 +36,7 @@ describe("FeatureCard", () => {
     expect(screen.getByTestId("author")).toHaveTextContent("By berni");
     expect(screen.getByText("coding")).toBeInTheDocument();
     expect(screen.getByText("New!")).toBeInTheDocument();
+    expect(screen.getByText("15/06/2009")).toBeInTheDocument();
   });
 
   test("renders the image correctly", () => {

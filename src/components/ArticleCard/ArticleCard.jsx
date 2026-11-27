@@ -1,6 +1,7 @@
 import "./ArticleCard.css";
 import { Votes } from "../../components/Votes/Votes";
 import { Comments } from "../Comments/Comments";
+import { isoStringToDDMMYYYY } from "../../utils/utils";
 
 export const ArticleCard = ({
   article,
@@ -28,10 +29,6 @@ export const ArticleCard = ({
     cooking: "#3e91c1",
     football: "#fe673a",
   };
-
-  const formattedDate = new Date(created_at).toLocaleDateString("en-GB", {
-    dateStyle: "full",
-  });
 
   const tagColour = { backgroundColor: `${topicColour[topic] || "#d3d3d3"}` };
 
@@ -68,7 +65,7 @@ export const ArticleCard = ({
               By {author}
             </address>
           </div>
-          <time className="date">{formattedDate}</time>
+          <time className="date">{isoStringToDDMMYYYY(created_at)}</time>
         </div>
         <p>{body}</p>
       </div>

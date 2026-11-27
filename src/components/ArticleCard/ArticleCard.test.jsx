@@ -56,7 +56,7 @@ describe("ArticleCard", () => {
       expect(image[1]).toHaveAttribute("alt", "berni avatar");
 
       expect(author).toBeInTheDocument();
-      expect(date).toHaveTextContent("Monday, 15 June 2009");
+      expect(date).toHaveTextContent("15/06/2009");
       expect(article).toBeInTheDocument();
       expect(votes).toBeInTheDocument();
     });

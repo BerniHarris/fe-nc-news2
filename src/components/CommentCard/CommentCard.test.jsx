@@ -54,7 +54,7 @@ describe("CommentCard", () => {
 
       expect(commentText).toBeInTheDocument();
       expect(author).toBeInTheDocument();
-      expect(date).toHaveTextContent("Monday, 15 June 2009");
+      expect(date).toHaveTextContent("15/06/2009");
       expect(votes).toBeInTheDocument();
       expect(deleteButton).toHaveRole("button");
     });
@@ -73,9 +73,7 @@ describe("CommentCard", () => {
 
       expect(screen.getByText("here is a comment")).toBeInTheDocument();
       expect(screen.getByText(/by berni/i)).toBeInTheDocument();
-      expect(screen.getByRole("time")).toHaveTextContent(
-        "Monday, 15 June 2009",
-      );
+      expect(screen.getByRole("time")).toHaveTextContent("15/06/2009");
       expect(screen.getByTestId("delete-comment-button")).toHaveRole("button");
 
       expect(
@@ -129,7 +127,7 @@ describe("CommentCard", () => {
 
       expect(commentText).toBeInTheDocument();
       expect(author).toBeInTheDocument();
-      expect(date).toHaveTextContent("Monday, 15 June 2009");
+      expect(date).toHaveTextContent("15/06/2009");
       expect(votes).toBeInTheDocument();
       expect(deleteButton).not.toBeInTheDocument();
     });

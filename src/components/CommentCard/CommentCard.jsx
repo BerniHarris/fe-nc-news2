@@ -1,4 +1,4 @@
-import { formattedDate } from "../../utils/utils";
+import { isoStringToDDMMYYYY } from "../../utils/utils";
 import "./CommentCard.css";
 import { Votes } from "../Votes/Votes";
 import { DeleteComment } from "../DeleteComment/DeleteComment";
@@ -30,7 +30,7 @@ export const CommentCard = ({ comment, handleDelete, userAvatar }) => {
               By {author}
             </address>
           </div>
-          <time className="date">{formattedDate(created_at)}</time>
+          <time className="date">{isoStringToDDMMYYYY(created_at)}</time>
         </div>
         <p>{body}</p>
       </header>

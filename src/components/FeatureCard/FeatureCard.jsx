@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 
 import "./FeatureCard.css";
+import { isoStringToDDMMYYYY } from "../../utils/utils";
 
 export const FeatureCard = ({ article }) => {
   if (!article) {
@@ -15,10 +16,6 @@ export const FeatureCard = ({ article }) => {
     topic,
     title,
   } = article;
-
-  const formattedDate = new Date(date).toLocaleDateString("en-GB", {
-    dateStyle: "full",
-  });
 
   const topicColour = {
     coding: "#f7b0be",
@@ -49,7 +46,7 @@ export const FeatureCard = ({ article }) => {
           <address className="author" data-testid="author">
             By {author}
           </address>
-          <time className="date">{formattedDate}</time>
+          <time className="date">{isoStringToDDMMYYYY(date)}</time>
         </div>
       </footer>
     </Link>
