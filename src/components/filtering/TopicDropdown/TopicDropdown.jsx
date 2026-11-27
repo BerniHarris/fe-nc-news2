@@ -11,7 +11,7 @@ export const TopicDropdown = ({ onChange }) => {
     <CustomDropdown
       id={"topic"}
       label={"Topic:"}
-      placeholder={"Choose a topic"}
+      placeholder={"Topic"}
       options={topicOptions}
       onChange={onChange}
       hide={true}

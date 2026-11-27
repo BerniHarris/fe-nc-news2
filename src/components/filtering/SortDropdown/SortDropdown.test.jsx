@@ -8,7 +8,7 @@ describe("SortDropdown", () => {
     render(<SortDropdown />);
 
     expect(screen.getByLabelText("Sort:")).toBeInTheDocument();
-    expect(screen.getByText("Choose How To Sort")).toBeInTheDocument();
+    expect(screen.getByText("Sort")).toBeInTheDocument();
   });
 
   test("the correct number of options to render", async () => {

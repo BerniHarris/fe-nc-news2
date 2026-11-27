@@ -9,3 +9,11 @@
   white-space: nowrap;
   border: 0;
 }
+
+.custom-dropdown__control {
+  min-width: 120px;
+}
+
+.custom-dropdown__menu {
+  min-width: 120px;
+}

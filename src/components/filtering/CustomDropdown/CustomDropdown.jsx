@@ -20,6 +20,7 @@ export const CustomDropdown = ({
         {label}
       </label>
       <Select
+        classNamePrefix="custom-dropdown"
         inputId={id}
         options={options}
         isClearable={true}

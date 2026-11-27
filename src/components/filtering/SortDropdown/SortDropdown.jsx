@@ -12,7 +12,7 @@ export const SortDropdown = ({ onChange }) => {
     <CustomDropdown
       id={"sort_by"}
       label={"Sort:"}
-      placeholder={"Choose How To Sort"}
+      placeholder={"Sort"}
       options={sortOptions}
       onChange={onChange}
       hide={true}

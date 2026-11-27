@@ -8,7 +8,7 @@ describe("TopicDropdown", () => {
     render(<TopicDropdown />);
 
     expect(screen.getByLabelText("Topic:")).toBeInTheDocument();
-    expect(screen.getByText("Choose a topic")).toBeInTheDocument();
+    expect(screen.getByText("Topic")).toBeInTheDocument();
   });
 
   test("the correct number of options to render", async () => {
